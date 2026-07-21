@@ -1,83 +1,11 @@
----
-name: flutter-riverpod-init
-description: Initialize a runnable Flutter scaffold using Riverpod, go_router, Dio, Freezed/JSON generation, SharedPreferences storage, Logger, and AdaptiveTheme. Use when the user asks to create a new Flutter Riverpod project template, bootstrap a TubeFlow-style app structure, install the baseline dependencies, create core providers/router/storage/network files, and update main.dart.
----
-
-# Flutter Riverpod 项目初始化
-
-## 目标
-
-把一个 Flutter 项目初始化为可运行的 Riverpod 脚手架。参考 `技术说明.md` 的工程思想：启动前完成异步初始化，使用 Riverpod 管理依赖图，使用 go_router 做首屏分流与登录守卫，使用 Dio 封装网络层，使用 SharedPreferences 封装 Token 与首次启动状态，使用 AdaptiveTheme 管理亮暗主题。
-
-生成结果必须能通过 `dart run build_runner build --delete-conflicting-outputs` 生成代码，并通过 `flutter run` 启动到 Splash → Welcome/Login → Home 的最小流程。
-
-## 执行流程
-
-1. 先检查当前目录是否是 Flutter 项目：确认存在 `pubspec.yaml` 与 `lib/main.dart`。
-2. 安装依赖：
-
-```sh
-flutter pub add flutter_riverpod riverpod_annotation go_router dio freezed_annotation json_annotation shared_preferences logger adaptive_theme
-flutter pub add --dev riverpod_lint build_runner riverpod_generator freezed json_serializable shared_preferences_platform_interface
-```
-
-`analysis_options.yaml`（无则新建）需启用 `riverpod_lint`，版本与 `pubspec.yaml` 中 `riverpod_lint` 一致：
-
-```yaml
-plugins:
-  riverpod_lint: <version number>
-```
-
-3. 创建基础目录：
-
-```sh
-mkdir -p lib/core/config lib/core/network/interceptors lib/core/providers lib/core/router lib/core/storage lib/core/ui lib/features/auth/pages lib/features/home/pages lib/features/splash/pages lib/features/welcome/pages lib/shared/extensions lib/shared/widgets
-```
-
-4. 创建或合并以下文件。若项目已有同名文件，先阅读再合并，不要盲目覆盖用户代码。
-5. 运行生成、格式化、检查：
-
-```sh
-dart run build_runner build --delete-conflicting-outputs
-dart format lib test
-flutter analyze
-flutter test
-```
-
-如果项目暂时没有测试，`flutter test` 可能只验证默认 widget test；必要时同步更新默认测试或说明未通过原因。
-
-6. 对 pubspec.yaml dependencies dev_dependencies 进行分组加注释
-
-## 依赖与目录要求
-
-必须包含依赖：
-
-- `dependencies`: `flutter_riverpod`, `riverpod_annotation`, `go_router`, `dio`, `freezed_annotation`, `json_annotation`, `shared_preferences`, `logger`, `adaptive_theme`
-- `dev_dependencies`: `riverpod_lint`, `build_runner`, `riverpod_generator`, `freezed`, `json_serializable`, `shared_preferences_platform_interface`（`riverpod_lint` 须在 `analysis_options.yaml` 的 `plugins` 中声明同名版本）
-
-必须保留初始目录：
-
-```text
-lib/
-├── core/
-│   ├── config/
-│   ├── network/
-│   │   └── interceptors/
-│   ├── providers/
-│   ├── router/
-│   ├── storage/
-│   └── ui/
-├── features/
-│   ├── auth/
-│   ├── home/
-│   ├── splash/
-│   └── welcome/
-└── shared/
-    ├── extensions/
-    └── widgets/
-```
-
 ## 文件模板
+
+## Contents
+
+- Core configuration, storage, network, providers, router, and UI files
+- Shared widgets and component selection rules
+- Splash, welcome, auth, and home starter pages
+- `lib/main.dart` and final acceptance criteria
 
 ### `lib/core/config/app_config.dart`
 
@@ -1903,14 +1831,3 @@ class MyApp extends ConsumerWidget {
   }
 }
 ```
-
-## 验收标准
-
-- `lib/core/config/`, `network/`, `providers/`, `router/`, `storage/`, `ui/` 已创建。
-- `lib/core/ui/` 包含主题 token、屏幕适配、安全区扩展与 `ui.dart` 导出文件。
-- `lib/shared/widgets/` 包含 `SectionHeader`、`SettingsTile`、`SettingsGroup` 与 `widgets.dart` 导出文件。
-- `lib/features/auth/`, `home/`, `splash/`, `welcome/` 已有最小页面。
-- `main.dart` 在 `runApp` 前初始化 `SharedPreferences` 和 `AdaptiveTheme`，并用 `ProviderContainer` override `sharedPreferencesProvider`。
-- `dio_provider.dart`, `api_providers.dart`, `app_router.dart` 都包含 `part '*.g.dart';`，且 build_runner 后生成对应 `.g.dart`。
-- 应用启动后可进入 Splash，首次进入 Welcome，点击后进入 Login，Mock login 后进入 Home，退出后回到 Login。
-- 验证命令优先执行：`dart run build_runner build --delete-conflicting-outputs`, `dart format lib test`, `flutter analyze`, `flutter test`。
