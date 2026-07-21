@@ -1,4 +1,4 @@
-# ducafe-skills
+# skills
 
 面向 Flutter 开发与资源处理工作流的可复用 Codex Agent Skills 集合。
 
@@ -6,10 +6,10 @@
 
 ## 可用技能
 
-| 技能 | 说明 | 文档 |
-|---|---|---|
-| [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md) | 为已有 Flutter 项目初始化 Riverpod、go_router、Dio、Freezed/JSON、SharedPreferences、Logger、AdaptiveTheme，以及可运行的基础页面流程。 | [README](./skills/flutter-riverpod-init/README.md) |
-| [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 的源图，用纯 Dart 生成 Flutter 1x、2x 图片资源，并更新资源索引。 | [README](./skills/flutter-assets-compress/README.md) |
+| 技能                                                                   | 说明                                                                                                                                   | 文档                                                 |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md)     | 为已有 Flutter 项目初始化 Riverpod、go_router、Dio、Freezed/JSON、SharedPreferences、Logger、AdaptiveTheme，以及可运行的基础页面流程。 | [README](./skills/flutter-riverpod-init/README.md)   |
+| [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 的源图，用纯 Dart 生成 Flutter 1x、2x 图片资源，并更新资源索引。                                            | [README](./skills/flutter-assets-compress/README.md) |
 
 ## 安装
 
@@ -18,14 +18,14 @@
 安装指定版本：
 
 ```bash
-gh skill install ducafecat/ducafe-skills flutter-riverpod-init@v1.0.0
-gh skill install ducafecat/ducafe-skills flutter-assets-compress@v1.0.0
+gh skill install ducafecat/skills flutter-riverpod-init@v1.0.0
+gh skill install ducafecat/skills flutter-assets-compress@v1.0.0
 ```
 
 安装并固定版本：
 
 ```bash
-gh skill install ducafecat/ducafe-skills flutter-riverpod-init --pin v1.0.0
+gh skill install ducafecat/skills flutter-riverpod-init --pin v1.0.0
 ```
 
 ### Cursor
@@ -123,7 +123,7 @@ cp -R skills/flutter-assets-compress ~/.claude/skills/
 ## 仓库结构
 
 ```text
-ducafe-skills/
+skills/
 ├── skills/
 │   ├── flutter-riverpod-init/
 │   │   ├── SKILL.md
