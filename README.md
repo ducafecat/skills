@@ -2,6 +2,8 @@
 
 面向 Flutter 开发与资源处理工作流的可复用 Codex Agent Skills 集合。
 
+官网：[https://ducafecat.com](https://ducafecat.com)
+
 ## 可用技能
 
 | 技能 | 说明 | 文档 |
@@ -10,6 +12,8 @@
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 的源图，用纯 Dart 生成 Flutter 1x、2x 图片资源，并更新资源索引。 | [README](./skills/flutter-assets-compress/README.md) |
 
 ## 安装
+
+### Codex Skill Installer
 
 安装指定版本：
 
@@ -23,6 +27,78 @@ gh skill install ducafecat/ducafe-skills flutter-assets-compress@v1.0.0
 ```bash
 gh skill install ducafecat/ducafe-skills flutter-riverpod-init --pin v1.0.0
 ```
+
+### Cursor
+
+如果你的 Cursor 版本支持 Skills，可以安装到项目级或全局目录。
+
+项目级安装：
+
+```bash
+mkdir -p .cursor/skills
+cp -R skills/flutter-riverpod-init .cursor/skills/
+cp -R skills/flutter-assets-compress .cursor/skills/
+```
+
+全局安装：
+
+```bash
+mkdir -p ~/.cursor/skills
+cp -R skills/flutter-riverpod-init ~/.cursor/skills/
+cp -R skills/flutter-assets-compress ~/.cursor/skills/
+```
+
+安装后重新打开项目或重启 Cursor Agent。
+
+### Codex
+
+Codex 可读取项目级 `.agents/skills` 与用户级 `~/.agents/skills`。
+
+项目级安装：
+
+```bash
+mkdir -p .agents/skills
+cp -R skills/flutter-riverpod-init .agents/skills/
+cp -R skills/flutter-assets-compress .agents/skills/
+```
+
+全局安装：
+
+```bash
+mkdir -p ~/.agents/skills
+cp -R skills/flutter-riverpod-init ~/.agents/skills/
+cp -R skills/flutter-assets-compress ~/.agents/skills/
+```
+
+安装后在 Codex 中输入 `/skills` 或使用 `$flutter-riverpod-init`、`$flutter-assets-compress` 显式调用。
+
+### Claude Code（CC）
+
+Claude Code 可读取项目级 `.claude/skills` 与用户级 `~/.claude/skills`。
+
+项目级安装：
+
+```bash
+mkdir -p .claude/skills
+cp -R skills/flutter-riverpod-init .claude/skills/
+cp -R skills/flutter-assets-compress .claude/skills/
+```
+
+全局安装：
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R skills/flutter-riverpod-init ~/.claude/skills/
+cp -R skills/flutter-assets-compress ~/.claude/skills/
+```
+
+如果当前会话没有自动发现新技能，重启 Claude Code 后再试。
+
+### 参考链接
+
+- [Cursor CLI / Agent 文档](https://docs.cursor.com/en/cli/overview)
+- [Codex Build Skills 文档](https://learn.chatgpt.com/docs/build-skills)
+- [Claude Code Skills 文档](https://code.claude.com/docs/zh-CN/skills)
 
 ## 使用场景
 
