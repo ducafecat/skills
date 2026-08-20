@@ -77,10 +77,19 @@ flutter pub add flutter_riverpod riverpod_annotation go_router dio freezed_annot
 Install development dependencies:
 
 ```sh
-flutter pub add --dev riverpod_lint build_runner riverpod_generator freezed json_serializable shared_preferences_platform_interface
+flutter pub add --dev build_runner riverpod_generator freezed json_serializable shared_preferences_platform_interface
 ```
 
-Update `analysis_options.yaml` so `riverpod_lint` is enabled with the installed version.
+Do **not** add `riverpod_lint` to `pubspec.yaml`. It is an `analysis_server_plugin`; as a pub dependency it pins an exact `riverpod` version and conflicts with `flutter_riverpod` / `analyzer`.
+
+Enable it only in `analysis_options.yaml` (merge if the file exists). Use the latest version from https://pub.dev/packages/riverpod_lint:
+
+```yaml
+plugins:
+  riverpod_lint: ^3.1.8
+```
+
+Do not put it under `analyzer.plugins` (legacy `custom_lint` format). Do not copy a version from `pubspec.yaml`.
 
 ### 3. Create baseline directories
 
