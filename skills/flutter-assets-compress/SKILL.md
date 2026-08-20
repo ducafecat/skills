@@ -4,7 +4,7 @@ description: Generate Flutter 1x and 2x image assets from existing 3.0x sources 
 license: MIT
 metadata:
   author: ducafecat
-  version: "1.0.0"
+  version: "1.0.1"
   compatibility: Requires a Flutter or Dart project with assets/images/3.0x source images. Script execution requires Dart SDK and package dependencies image ^4.8.0 and path ^1.9.1.
 ---
 
