@@ -4,7 +4,7 @@ description: Initialize an existing Flutter project into a runnable Riverpod sca
 license: MIT
 metadata:
   author: ducafecat
-  version: "1.0.0"
+  version: "1.0.1"
   compatibility: Requires an existing Flutter project with pubspec.yaml and lib/main.dart. Optional checks require Flutter SDK, Dart SDK, network access for package installation, and writable project files.
 ---
 
