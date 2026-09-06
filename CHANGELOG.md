@@ -2,6 +2,10 @@
 
 All notable changes to this repository will be documented in this file.
 
+## [1.0.2] - 2026-09-07
+
+- flutter-riverpod-init 自适应 Riverpod、GetX。
+
 ## [1.0.1] - 2026-08-20
 
 - riverpod_lint 已从 pubspec 移除，只在 analysis_options.yaml 的 plugins 启用。

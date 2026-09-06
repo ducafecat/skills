@@ -13,92 +13,21 @@
 
 ## 安装
 
-### Codex Skill Installer
-
-安装指定版本：
+在项目目录中运行：
 
 ```bash
-gh skill install ducafecat/skills flutter-riverpod-init@v1.0.0
-gh skill install ducafecat/skills flutter-assets-compress@v1.0.0
+npx skills@latest add ducafecat/skills
 ```
 
-安装并固定版本：
+安装器会引导你选择需要的技能，以及要安装到 Codex、Claude Code、Cursor 等哪些编码 Agent。技能会作为普通文件写入项目，因此可以直接查看和修改。
+
+需要获取本仓库的最新版本时运行：
 
 ```bash
-gh skill install ducafecat/skills flutter-riverpod-init --pin v1.0.0
+npx skills update
 ```
 
-### Cursor
-
-如果你的 Cursor 版本支持 Skills，可以安装到项目级或全局目录。
-
-项目级安装：
-
-```bash
-mkdir -p .cursor/skills
-cp -R skills/flutter-riverpod-init .cursor/skills/
-cp -R skills/flutter-assets-compress .cursor/skills/
-```
-
-全局安装：
-
-```bash
-mkdir -p ~/.cursor/skills
-cp -R skills/flutter-riverpod-init ~/.cursor/skills/
-cp -R skills/flutter-assets-compress ~/.cursor/skills/
-```
-
-安装后重新打开项目或重启 Cursor Agent。
-
-### Codex
-
-Codex 可读取项目级 `.agents/skills` 与用户级 `~/.agents/skills`。
-
-项目级安装：
-
-```bash
-mkdir -p .agents/skills
-cp -R skills/flutter-riverpod-init .agents/skills/
-cp -R skills/flutter-assets-compress .agents/skills/
-```
-
-全局安装：
-
-```bash
-mkdir -p ~/.agents/skills
-cp -R skills/flutter-riverpod-init ~/.agents/skills/
-cp -R skills/flutter-assets-compress ~/.agents/skills/
-```
-
-安装后在 Codex 中输入 `/skills` 或使用 `$flutter-riverpod-init`、`$flutter-assets-compress` 显式调用。
-
-### Claude Code（CC）
-
-Claude Code 可读取项目级 `.claude/skills` 与用户级 `~/.claude/skills`。
-
-项目级安装：
-
-```bash
-mkdir -p .claude/skills
-cp -R skills/flutter-riverpod-init .claude/skills/
-cp -R skills/flutter-assets-compress .claude/skills/
-```
-
-全局安装：
-
-```bash
-mkdir -p ~/.claude/skills
-cp -R skills/flutter-riverpod-init ~/.claude/skills/
-cp -R skills/flutter-assets-compress ~/.claude/skills/
-```
-
-如果当前会话没有自动发现新技能，重启 Claude Code 后再试。
-
-### 参考链接
-
-- [Cursor CLI / Agent 文档](https://docs.cursor.com/en/cli/overview)
-- [Codex Build Skills 文档](https://learn.chatgpt.com/docs/build-skills)
-- [Claude Code Skills 文档](https://code.claude.com/docs/zh-CN/skills)
+安装完成后，可以通过技能名称显式调用，例如 `$flutter-riverpod-init` 或 `$flutter-assets-compress`；支持自动发现技能的 Agent 也会在任务匹配时主动使用它们。
 
 ## 使用场景
 
@@ -123,7 +52,7 @@ cp -R skills/flutter-assets-compress ~/.claude/skills/
 ## 仓库结构
 
 ```text
-skills/
+.
 ├── skills/
 │   ├── flutter-riverpod-init/
 │   │   ├── SKILL.md
