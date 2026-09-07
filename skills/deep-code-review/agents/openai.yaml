@@ -1,0 +1,3 @@
+interface:
+  display_name: "Deep Code Review"
+  short_description: "深度 Review diffs with standards and routed local rules"

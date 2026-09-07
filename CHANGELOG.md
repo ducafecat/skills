@@ -2,6 +2,10 @@
 
 All notable changes to this repository will be documented in this file.
 
+## [1.0.3] - 2026-09-08
+
+- 深度代码审核
+
 ## [1.0.2] - 2026-09-07
 
 - flutter-riverpod-init 自适应 Riverpod、GetX。

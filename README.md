@@ -10,6 +10,7 @@
 | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md)     | 为已有 Flutter 项目初始化 Riverpod、go_router、Dio、Freezed/JSON、SharedPreferences、Logger、AdaptiveTheme，以及可运行的基础页面流程。 | [README](./skills/flutter-riverpod-init/README.md)   |
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 的源图，用纯 Dart 生成 Flutter 1x、2x 图片资源，并更新资源索引。                                            | [README](./skills/flutter-assets-compress/README.md) |
+| [`deep-code-review`](./skills/deep-code-review/SKILL.md)               | 深度审查 branch、PR、固定点或工作区代码变更，结合仓库标准与 AI 审查规则发现可验证的问题。                                             | [技能入口](./skills/deep-code-review/SKILL.md)       |
 
 ## 安装
 
@@ -27,7 +28,7 @@ npx skills@latest add ducafecat/skills
 npx skills update
 ```
 
-安装完成后，可以通过技能名称显式调用，例如 `$flutter-riverpod-init` 或 `$flutter-assets-compress`；支持自动发现技能的 Agent 也会在任务匹配时主动使用它们。
+安装完成后，可以通过技能名称显式调用，例如 `$flutter-riverpod-init`、`$flutter-assets-compress` 或 `$deep-code-review`；支持自动发现技能的 Agent 也会在任务匹配时主动使用它们。
 
 ## 使用场景
 
@@ -49,6 +50,15 @@ npx skills update
 
 - [技能入口](./skills/flutter-assets-compress/SKILL.md)
 
+### 深度代码审核
+
+使用 [`deep-code-review`](./skills/deep-code-review/SKILL.md) 审查 branch、PR、指定固定点或当前工作区中的代码变更。技能会根据变更规模与风险选择轻审或全审，并从仓库规范和 AI 审查规则两个维度核查问题。
+
+更多细节：
+
+- [技能入口](./skills/deep-code-review/SKILL.md)
+- [审核标准](./skills/deep-code-review/references/standards.md)
+
 ## 仓库结构
 
 ```text
@@ -58,9 +68,14 @@ npx skills update
 │   │   ├── SKILL.md
 │   │   ├── README.md
 │   │   └── references/
-│   └── flutter-assets-compress/
+│   ├── flutter-assets-compress/
+│   │   ├── SKILL.md
+│   │   └── README.md
+│   └── deep-code-review/
 │       ├── SKILL.md
-│       └── README.md
+│       ├── agents/
+│       ├── references/
+│       └── scripts/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
