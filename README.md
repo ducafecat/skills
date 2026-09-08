@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/banner.png" alt="ducafecat/skills" />
+</p>
+
 # skills
 
 面向 Flutter 开发与资源处理工作流的可复用 Codex Agent Skills 集合。
