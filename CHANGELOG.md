@@ -2,6 +2,10 @@
 
 All notable changes to this repository will be documented in this file.
 
+## [1.0.4] - 2026-09-13
+
+- add flutter-getx-init getx 脚手架
+
 ## [1.0.3] - 2026-09-08
 
 - 深度代码审核

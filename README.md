@@ -13,6 +13,7 @@
 | 技能                                                                   | 说明                                                                                                                                   | 文档                                                 |
 | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md)     | 为已有 Flutter 项目初始化 Riverpod、go_router、Dio、Freezed/JSON、SharedPreferences、Logger、AdaptiveTheme，以及可运行的基础页面流程。 | [README](./skills/flutter-riverpod-init/README.md)   |
+| [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md)             | 为已有 Flutter 项目初始化 GetX、go_router、Dio、Freezed/JSON、存储、主题与多语言，包含基础页面流程、DucafeUI 组件库及离线文档。         | [README](./skills/flutter-getx-init/README.md)       |
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 的源图，用纯 Dart 生成 Flutter 1x、2x 图片资源，并更新资源索引。                                            | [README](./skills/flutter-assets-compress/README.md) |
 | [`deep-code-review`](./skills/deep-code-review/SKILL.md)               | 深度审查 branch、PR、固定点或工作区代码变更，结合仓库标准与 AI 审查规则发现可验证的问题。                                             | [技能入口](./skills/deep-code-review/SKILL.md)       |
 
@@ -32,7 +33,7 @@ npx skills@latest add ducafecat/skills
 npx skills update
 ```
 
-安装完成后，可以通过技能名称显式调用，例如 `$flutter-riverpod-init`、`$flutter-assets-compress` 或 `$deep-code-review`；支持自动发现技能的 Agent 也会在任务匹配时主动使用它们。
+安装完成后，可以通过技能名称显式调用，例如 `$flutter-riverpod-init`、`$flutter-getx-init`、`$flutter-assets-compress` 或 `$deep-code-review`；支持自动发现技能的 Agent 也会在任务匹配时主动使用它们。
 
 ## 使用场景
 
@@ -45,6 +46,16 @@ npx skills update
 - [技能入口](./skills/flutter-riverpod-init/SKILL.md)
 - [架构说明](./skills/flutter-riverpod-init/references/architecture.md)
 - [文件模板](./skills/flutter-riverpod-init/references/file-templates.md)
+
+### Flutter GetX 项目初始化
+
+使用 [`flutter-getx-init`](./skills/flutter-getx-init/README.md) 快速为已有 Flutter 项目加入 GetX 状态管理、go_router 路由、网络、存储、主题和多语言，生成启动页、欢迎页、登录页与首页流程，并提供 DucafeUI 通用组件库及离线组件说明和样式规范。
+
+更多细节：
+
+- [技能入口](./skills/flutter-getx-init/SKILL.md)
+- [架构说明](./skills/flutter-getx-init/references/architecture.md)
+- [文件模板](./skills/flutter-getx-init/references/file-templates.md)
 
 ### Flutter 图片资源生成
 
@@ -71,6 +82,11 @@ npx skills update
 │   ├── flutter-riverpod-init/
 │   │   ├── SKILL.md
 │   │   ├── README.md
+│   │   └── references/
+│   ├── flutter-getx-init/
+│   │   ├── SKILL.md
+│   │   ├── README.md
+│   │   ├── assets/
 │   │   └── references/
 │   ├── flutter-assets-compress/
 │   │   ├── SKILL.md

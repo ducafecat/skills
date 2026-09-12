@@ -1,0 +1,1237 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DucafeUI</title><meta name="description" content="DucafeUI Flutter 通用组件使用说明、源码位置、构造参数与示例。"><style>
+:root{color-scheme:light;--bg:#f5f1ea;--paper:#fffdf9;--fg:#231f1a;--muted:#736b61;--line:#e3ddd3;--accent:#a54822;--soft:#ede8df;--code:#211f1b;--codefg:#f4efe7}
+:root[data-theme=dark]{color-scheme:dark;--bg:#141310;--paper:#1d1c18;--fg:#f4efe7;--muted:#b0a89c;--line:#39362f;--accent:#ef8a4e;--soft:#282724;--code:#10100e;--codefg:#f4efe7}
+*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth;scroll-padding-top:25px}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.8 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}aside{position:fixed;inset:0 auto 0 0;width:250px;padding:30px 24px;overflow:auto;border-right:1px solid var(--line);background:var(--paper)}.brand{font-weight:800;font-size:23px;letter-spacing:-1px}.brand b{color:var(--accent)}.sub{font-size:12px;color:var(--muted);margin-bottom:24px}nav a{display:flex;gap:13px;padding:7px 0;color:var(--muted);font-size:14px}nav a:hover{color:var(--accent)}nav a span{font:11px/2.3 monospace;opacity:.7}main{max-width:1290px;margin:0 auto 0 250px;padding:55px clamp(22px,5vw,80px) 80px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:2px;color:var(--accent);text-transform:uppercase}h1{font-size:clamp(32px,5vw,58px);line-height:1.2;letter-spacing:-2px;margin:15px 0 20px}h2{font-size:29px;line-height:1.35;margin:8px 0}h3{font-size:16px;margin:24px 0 12px}.intro{max-width:720px;color:var(--muted);font-size:17px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.meta span,.types code{border:1px solid var(--line);border-radius:6px;padding:3px 9px;font-size:12px}.toolbar{display:flex;gap:10px;margin:30px 0 16px;flex-wrap:wrap}input{min-width:0;flex:1;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--fg)}button{padding:8px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--fg)}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--paper)}#count{font-size:12px;color:var(--muted)}.guide,.component{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:clamp(20px,3vw,36px);margin-top:26px}.guide{border-left:3px solid var(--accent)}.guide h2{font-size:20px}.guide p{margin:10px 0}.component[hidden]{display:none}.source{display:inline-block;font:12px/1.6 ui-monospace,monospace;margin-top:7px;overflow-wrap:anywhere}.lead{color:var(--muted);font-size:16px}.types{display:flex;gap:7px;flex-wrap:wrap}.types code{color:var(--accent);background:var(--bg)}ul{padding-left:22px}li{margin:8px 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.88em;overflow-wrap:anywhere}pre{margin:0;padding:20px;overflow:auto;background:var(--code);color:var(--codefg);border-radius:9px;line-height:1.65;tab-size:2}pre code{overflow-wrap:normal;white-space:pre;font-size:12px}.example{margin-top:22px;border-radius:10px;background:var(--code);overflow:hidden}.example pre{border-radius:0}.codebar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid #ffffff1f;color:#bdb5a8;font-size:10px;letter-spacing:1px}.copy{font-size:12px;padding:3px 12px;background:transparent;color:#f4efe7;border-color:#ffffff38}details{border-top:1px solid var(--line);padding:12px 0}summary{display:flex;justify-content:space-between;gap:12px;cursor:pointer;list-style:none}summary span{font-size:11px;color:var(--muted);flex-shrink:0}summary code{font-weight:700}.caption{font-size:12px;color:var(--muted)}details pre+pre{margin-top:10px}footer{margin-top:36px;font-size:12px;color:var(--muted)}#empty{padding:30px;text-align:center;color:var(--muted)}.skip{position:absolute;left:-9999px}.skip:focus{left:270px;top:10px;background:var(--paper);padding:8px;z-index:2}@media(max-width:850px){aside{position:static;width:auto;padding:20px;border-right:0;border-bottom:1px solid var(--line)}aside .sub{margin-bottom:0}nav{display:none}main{margin:0;padding:28px 16px 50px}.skip:focus{left:15px}.toolbar input{flex-basis:100%}h1{letter-spacing:-1px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{aside,.toolbar,.filters,#count,.copy,.skip{display:none}main{margin:0;max-width:none;padding:0}.component,.guide{break-inside:avoid;border-radius:0}body{background:white;color:black}pre{white-space:pre-wrap}pre code{white-space:pre-wrap}.component[hidden]{display:block}}
+</style></head>
+<body><a class="skip" href="#content">跳到正文</a><aside><div class="brand">DucafeUI<b> /</b></div><div class="sub">FLUTTER COMPONENT REFERENCE</div><nav aria-label="组件目录"><a href="#start"><span>↗</span>快速开始</a><a href="#c-button" data-category="交互"><span>01</span>按钮</a><a href="#c-text" data-category="基础"><span>02</span>文字</a><a href="#c-image" data-category="基础"><span>03</span>图片与 SVG</a><a href="#c-icon" data-category="基础"><span>04</span>图标与徽标</a><a href="#c-avatar" data-category="基础"><span>05</span>头像</a><a href="#c-input" data-category="交互"><span>06</span>输入与搜索</a><a href="#c-form-input" data-category="交互"><span>07</span>表单字段</a><a href="#c-checkbox" data-category="交互"><span>08</span>复选框</a><a href="#c-dialog" data-category="反馈"><span>09</span>对话框</a><a href="#c-bottom_sheet" data-category="反馈"><span>10</span>底部面板</a><a href="#c-list_tile" data-category="布局"><span>11</span>列表与设置项</a><a href="#c-card" data-category="布局"><span>12</span>卡片</a><a href="#c-chip" data-category="交互"><span>13</span>分类与筛选</a><a href="#c-tabs" data-category="导航"><span>14</span>选项卡与底部导航</a><a href="#c-header" data-category="导航"><span>15</span>导航标题与分区标题</a><a href="#c-state" data-category="反馈"><span>16</span>空状态与结果反馈</a><a href="#c-surface" data-category="布局"><span>17</span>玻璃表面</a><a href="#c-scaffold" data-category="布局"><span>18</span>页面容器</a><a href="#c-widget_scale" data-category="基础"><span>19</span>尺寸档位</a></nav></aside><main id="content">
+<header><div class="eyebrow">开发文档 / 组件参考</div><h1>DucafeUI</h1><p class="intro">标准组件统一维护在 <code>lib/common/widgets</code>。本说明依据当前代码整理，保留各类组件的参数与行为差异，帮助页面直接选用已有实现。</p><div class="meta"><span>19 个功能模块</span><span>50 个公开类型</span><span>GetX · Material · AppStyle</span><span>离线可读 · 无外部依赖</span></div></header>
+<div class="toolbar"><input id="search" type="search" aria-label="搜索组件、参数或功能" placeholder="搜索组件、参数或功能，例如 loading / 表单 / SVG"><button id="theme" type="button">深色外观</button><button id="expand" type="button" aria-expanded="false">展开 API</button></div>
+<div class="filters" aria-label="按功能筛选"><button type="button" aria-pressed="true">全部</button><button type="button" aria-pressed="false">基础</button><button type="button" aria-pressed="false">交互</button><button type="button" aria-pressed="false">布局</button><button type="button" aria-pressed="false">导航</button><button type="button" aria-pressed="false">反馈</button></div><p id="count" role="status" aria-live="polite"></p>
+<section class="guide" id="start"><div class="eyebrow">QUICK START</div><h2>入口与使用约定</h2><p>页面、main.dart、global.dart 使用公共总入口；common 内跨子目录使用目标 index.dart，同目录直接导入功能文件。</p><pre><code>// 页面使用
+import &#x27;package:{{package_name}}/common/index.dart&#x27;;
+
+// common/components 内使用
+import &#x27;../widgets/index.dart&#x27;;
+
+// common/widgets 内部使用
+import &#x27;button.dart&#x27;;</code></pre><p>以上是不同文件位置的导入示例，不在同一文件中同时引入。页面还需按使用情况导入 Flutter Material。使用片段中的 controller、回调、状态和 key 由页面提供；示例中文用于说明，正式业务文案使用 TrKeys。</p><p>样式复用 AppStyle、AppTextStyles、AppRadius 与 AppSpacing；新增组件按功能归入现有文件，并维护 widgets/index.dart。表单通过 form/index.dart 导出。接口参考展示本次生成时的源码签名，代码变更后需同步更新本说明。</p><p><a href="架构说明.md">架构说明 ↗</a> · <a href="2-设计/4-组件抽取规范.html">组件抽取规范 ↗</a></p></section>
+<div id="empty" hidden>没有匹配的组件，请更换关键词或选择“全部”。</div><section class="component" id="c-button" data-category="交互">
+<div class="eyebrow">01 / 交互</div><h2>按钮</h2><a class="source" href="../lib/common/widgets/button.dart">lib/common/widgets/button.dart ↗</a>
+<p class="lead">通用按钮、项目主次按钮、玻璃图标按钮和顶部动作集中维护。</p><div class="types"><code>ButtonWidgetVariant</code><code>ButtonWidget</code><code>AppButtonVariant</code><code>AppButtonSize</code><code>AppButton</code><code>PrimaryButton</code><code>GhostButton</code><code>GlassIconButton</code><code>TopBarAction</code></div>
+<ul><li>ButtonWidget 支持 primary、secondary、destructive、outline、ghost、link、icon；文案为 text，回调为 onTap，icon 接受 Widget。</li><li>AppButton 使用 label / onPressed，icon 接受 IconData，默认 expanded=true。PrimaryButton 和 GhostButton 复用 AppButton。</li><li>加载时两类按钮都禁止重复点击。AppButton 隐藏文案绘制但保留布局；ButtonWidget 在内容旁追加加载指示器。</li><li>GlassIconButton 默认视觉尺寸 32，触控区域至少 48；semanticLabel 必填。TopBarAction 的基准视觉高度为 32，支持大字自适应。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>// 示例中的回调与状态由所在页面提供。
+PrimaryButton(
+  label: &#x27;保存&#x27;,
+  loading: saving,
+  onPressed: onSave,
+)
+
+ButtonWidget.outline(
+  &#x27;筛选&#x27;,
+  icon: const Icon(Icons.filter_list),
+  onTap: onFilter,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>ButtonWidgetVariant</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum ButtonWidgetVariant {
+  primary,
+  secondary,
+  destructive,
+  outline,
+  ghost,
+  link,
+  icon,
+}</code></pre></details><details><summary><code>ButtonWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const ButtonWidget({
+    super.key,
+    this.variant = ButtonWidgetVariant.primary,
+    this.scale = WidgetScale.medium,
+    this.onTap,
+    this.text,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.width,
+    this.height,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.raw({
+    super.key,
+    required this.variant,
+    required this.scale,
+    this.onTap,
+    this.text,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.width,
+    this.height,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.primary(
+    this.text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.secondary(
+    this.text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.destructive(
+    this.text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.outline(
+    this.text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.ghost(
+    this.text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.link(
+    this.text, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.icon,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><pre><code>const ButtonWidget.icon(
+    this.icon, {
+    super.key,
+    this.scale = WidgetScale.medium,
+    this.text,
+    this.width,
+    this.height,
+    this.onTap,
+    this.borderRadius,
+    this.child,
+    this.backgroundColor,
+    this.borderColor,
+    this.enabled = true,
+    this.iconSpace,
+    this.loading,
+    this.textColor,
+    this.reverse,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.elevation,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>ButtonWidgetVariant variant
+WidgetScale scale
+Function()? onTap
+String? text
+Color? textColor
+Widget? child
+Widget? icon
+double? borderRadius
+Color? backgroundColor
+Color? borderColor
+double? width
+double? height
+bool enabled
+double? iconSpace
+bool? loading
+bool? reverse
+MainAxisAlignment? mainAxisAlignment
+MainAxisSize? mainAxisSize
+double? elevation</code></pre></details><details><summary><code>AppButtonVariant</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum AppButtonVariant { primary, ghost, destructive }</code></pre></details><details><summary><code>AppButtonSize</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum AppButtonSize { normal, prominent }</code></pre></details><details><summary><code>AppButton</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppButton({
+    super.key,
+    required this.label,
+    this.onPressed,
+    this.icon,
+    this.expanded = true,
+    this.loading = false,
+    this.enabled = true,
+    this.variant = AppButtonVariant.primary,
+    this.size = AppButtonSize.normal,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String label
+VoidCallback? onPressed
+IconData? icon
+bool expanded
+bool loading
+bool enabled
+AppButtonVariant variant
+AppButtonSize size</code></pre></details><details><summary><code>PrimaryButton</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const PrimaryButton({
+    super.key,
+    required super.label,
+    super.onPressed,
+    super.icon,
+    super.expanded,
+    super.loading,
+    super.enabled,
+    super.size,
+    super.variant,
+  })</code></pre></details><details><summary><code>GhostButton</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const GhostButton({
+    super.key,
+    required super.label,
+    super.onPressed,
+    super.icon,
+    super.expanded,
+    super.loading,
+    super.enabled,
+    super.size,
+  })</code></pre></details><details><summary><code>GlassIconButton</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const GlassIconButton({
+    super.key,
+    required this.icon,
+    required this.semanticLabel,
+    this.onPressed,
+    this.color,
+    this.onMedia = false,
+    this.size = 32,
+    this.iconSize = 20,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>IconData icon
+String semanticLabel
+VoidCallback? onPressed
+Color? color
+bool onMedia
+double size
+double iconSize</code></pre></details><details><summary><code>TopBarAction</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const TopBarAction({
+    super.key,
+    required this.label,
+    this.onPressed,
+    this.loading = false,
+    this.enabled = true,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String label
+VoidCallback? onPressed
+bool loading
+bool enabled</code></pre></details></div></section><section class="component" id="c-text" data-category="基础">
+<div class="eyebrow">02 / 基础</div><h2>文字</h2><a class="source" href="../lib/common/widgets/text.dart">lib/common/widgets/text.dart ↗</a>
+<p class="lead">沿用 AppTextStyles 的文字组件，支持系统字号缩放。</p><div class="types"><code>TextWidgetType</code><code>TextWidget</code></div>
+<ul><li>h1 → display；h2 → pageTitle；h3 → sectionTitle；h4 → cardTitle；body → body；label → label；muted → secondary。</li><li>先应用项目排版与 weight，再合并 textStyle，最后应用显式 color、size 和 fontStyle。textStyle 中的字重可覆盖 weight。</li><li>缩放档位：small 为 0.8，medium 为 1，large 为 1.3；未指定 scale 不额外缩放。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const TextWidget.h4(&#x27;订阅频道&#x27;)
+
+const TextWidget.body(
+  &#x27;最新更新内容&#x27;,
+  maxLines: 2,
+  overflow: TextOverflow.ellipsis,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>TextWidgetType</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum TextWidgetType { h1, h2, h3, h4, body, label, muted }</code></pre></details><details><summary><code>TextWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const TextWidget({
+    super.key,
+    required this.text,
+    this.type,
+    this.size,
+    this.scale,
+    this.textStyle,
+    this.color,
+    this.weight,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.h1(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w800,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.h2(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w600,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.h3(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w600,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.h4(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w600,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.body(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w400,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.label(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w400,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><pre><code>const TextWidget.muted(
+    this.text, {
+    super.key,
+    this.scale,
+    this.size,
+    this.color,
+    this.weight = FontWeight.w400,
+    this.maxLines,
+    this.softWrap,
+    this.overflow,
+    this.textAlign,
+    this.textStyle,
+    this.fontStyle,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String text
+TextWidgetType? type
+WidgetScale? scale
+TextStyle? textStyle
+FontStyle? fontStyle
+Color? color
+double? size
+FontWeight? weight
+int? maxLines
+bool? softWrap
+TextOverflow? overflow
+TextAlign? textAlign</code></pre></details></div></section><section class="component" id="c-image" data-category="基础">
+<div class="eyebrow">03 / 基础</div><h2>图片与 SVG</h2><a class="source" href="../lib/common/widgets/image.dart">lib/common/widgets/image.dart ↗</a>
+<p class="lead">本地资源、普通网络图片和 SVG 的基础显示能力。</p><div class="types"><code>ImageWidgetType</code><code>ImageWidget</code></div>
+<ul><li>ImageWidget.img 自动区分资源路径与 http/https 地址；以 // 开头的网络地址补齐 https。普通网络图片使用 CachedNetworkImage。</li><li>ImageWidget.svg 支持资源与网络地址；svgRaw 接收 SVG 源码，均使用 flutter_svg。</li><li>支持 width / height、fit、radius、color、placeholder、errorWidget 和 elevation。错误占位保留指定尺寸。</li><li>业务视频封面与频道头像使用 common/components 的 ProxyImage / ProxyAvatar；ImageWidget 不提供业务鉴权、会话隔离和后端代理。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const ImageWidget.svgRaw(
+  &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot;&gt;&#x27;
+  &#x27;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;&#x27;,
+  width: 24,
+  height: 24,
+  radius: 0,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>ImageWidgetType</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum ImageWidgetType { img, svg, svgRaw }</code></pre></details><details><summary><code>ImageWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const ImageWidget({
+    super.key,
+    required this.path,
+    required this.type,
+    this.radius,
+    this.width,
+    this.height,
+    this.fit,
+    this.placeholder,
+    this.errorWidget,
+    this.elevation,
+    this.color,
+  })</code></pre><pre><code>const ImageWidget.img(
+    this.path, {
+    super.key,
+    this.radius,
+    this.width,
+    this.height,
+    this.fit,
+    this.placeholder,
+    this.errorWidget,
+    this.elevation,
+    this.color,
+  })</code></pre><pre><code>const ImageWidget.svg(
+    this.path, {
+    super.key,
+    this.radius,
+    this.width,
+    this.height,
+    this.fit,
+    this.placeholder,
+    this.errorWidget,
+    this.elevation,
+    this.color,
+  })</code></pre><pre><code>const ImageWidget.svgRaw(
+    String raw, {
+    super.key,
+    this.radius,
+    this.width,
+    this.height,
+    this.fit,
+    this.placeholder,
+    this.errorWidget,
+    this.elevation,
+    this.color,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String path
+ImageWidgetType type
+double? radius
+double? width
+double? height
+BoxFit? fit
+Widget? placeholder
+Widget? errorWidget
+double? elevation
+Color? color</code></pre></details></div></section><section class="component" id="c-icon" data-category="基础">
+<div class="eyebrow">04 / 基础</div><h2>图标与徽标</h2><a class="source" href="../lib/common/widgets/icon.dart">lib/common/widgets/icon.dart ↗</a>
+<p class="lead">Material 图标、图片图标、SVG 图标以及附带文字的组合。</p><div class="types"><code>IconWidgetType</code><code>IconWidget</code></div>
+<ul><li>使用 icon / img / svg 命名构造。isDot 显示圆点，badgeString 显示文字徽标；isDot=true 时优先使用圆点。</li><li>text 增加标签，isVertical 控制纵向布局；isExpanded 仅在水平方向扩展文字，外层需要有界宽度。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const IconWidget.icon(
+  Icons.notifications_outlined,
+  badgeString: &#x27;3&#x27;,
+  text: &#x27;通知&#x27;,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>IconWidgetType</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum IconWidgetType { icon, svg, img }</code></pre></details><details><summary><code>IconWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const IconWidget({
+    super.key,
+    required this.type,
+    this.iconData,
+    this.path,
+    this.size,
+    this.width,
+    this.height,
+    this.color,
+    this.isDot,
+    this.badgeString,
+    this.fit,
+    this.text,
+    this.isVertical,
+    this.onTap,
+    this.isExpanded,
+  })</code></pre><pre><code>const IconWidget.icon(
+    this.iconData, {
+    super.key,
+    this.path,
+    this.size,
+    this.isExpanded = false,
+    this.width,
+    this.height,
+    this.color,
+    this.isDot,
+    this.badgeString,
+    this.fit,
+    this.text,
+    this.isVertical,
+    this.onTap,
+  })</code></pre><pre><code>const IconWidget.img(
+    this.path, {
+    super.key,
+    this.iconData,
+    this.size,
+    this.width,
+    this.height,
+    this.color,
+    this.isDot,
+    this.badgeString,
+    this.fit,
+    this.text,
+    this.isVertical,
+    this.onTap,
+    this.isExpanded,
+  })</code></pre><pre><code>const IconWidget.svg(
+    this.path, {
+    super.key,
+    this.iconData,
+    this.size,
+    this.width,
+    this.height,
+    this.color,
+    this.isDot,
+    this.badgeString,
+    this.fit,
+    this.text,
+    this.isVertical,
+    this.onTap,
+    this.isExpanded,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>IconWidgetType type
+IconData? iconData
+String? path
+double? size
+double? width
+double? height
+Color? color
+bool? isDot
+String? badgeString
+BoxFit? fit
+String? text
+bool? isVertical
+bool? isExpanded
+GestureTapCallback? onTap</code></pre></details></div></section><section class="component" id="c-avatar" data-category="基础">
+<div class="eyebrow">05 / 基础</div><h2>头像</h2><a class="source" href="../lib/common/widgets/avatar.dart">lib/common/widgets/avatar.dart ↗</a>
+<p class="lead">图片、SVG、首字符头像与文字兜底头像。</p><div class="types"><code>AvatarWidgetType</code><code>AvatarWidget</code><code>AppAvatar</code></div>
+<ul><li>AvatarWidget.img / svg 接受路径；text 取去除首尾空白后的首个 Unicode 字符簇并转为大写。空文字显示 ?。</li><li>AvatarWidget 始终圆形裁切，默认尺寸为 48；图片地址为空或加载失败显示文字兜底。</li><li>AppAvatar 默认尺寸 40，直接显示传入的完整 text，可指定 background / foreground。业务频道头像使用 ProxyAvatar。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const AvatarWidget.text(&#x27;张三&#x27;, size: 48)
+
+const AppAvatar(text: &#x27;TF&#x27;, size: 40)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>AvatarWidgetType</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum AvatarWidgetType { img, svg, text }</code></pre></details><details><summary><code>AvatarWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AvatarWidget({
+    super.key,
+    required this.type,
+    this.path,
+    this.size,
+    this.onTap,
+    this.borderWidth,
+    this.elevation,
+    this.backgroundColor,
+    this.padding,
+    this.firstChar,
+  })</code></pre><pre><code>const AvatarWidget.img(
+    this.path, {
+    super.key,
+    this.size,
+    this.onTap,
+    this.borderWidth,
+    this.elevation,
+    this.backgroundColor,
+    this.padding,
+    this.firstChar,
+  })</code></pre><pre><code>const AvatarWidget.svg(
+    this.path, {
+    super.key,
+    this.size,
+    this.onTap,
+    this.borderWidth,
+    this.elevation,
+    this.backgroundColor,
+    this.padding,
+    this.firstChar,
+  })</code></pre><pre><code>const AvatarWidget.text(
+    this.firstChar, {
+    super.key,
+    this.path,
+    this.size,
+    this.onTap,
+    this.borderWidth,
+    this.elevation,
+    this.backgroundColor,
+    this.padding,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>AvatarWidgetType type
+String? path
+double? size
+EdgeInsetsGeometry? padding
+GestureTapCallback? onTap
+double? borderWidth
+double? elevation
+Color? backgroundColor
+String? firstChar</code></pre></details><details><summary><code>AppAvatar</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppAvatar({
+    super.key,
+    required this.text,
+    this.size = 40,
+    this.background,
+    this.foreground,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String text
+double size
+Color? background
+Color? foreground</code></pre></details></div></section><section class="component" id="c-input" data-category="交互">
+<div class="eyebrow">06 / 交互</div><h2>输入与搜索</h2><a class="source" href="../lib/common/widgets/input.dart">lib/common/widgets/input.dart ↗</a>
+<p class="lead">基础输入、带说明的输入框和搜索输入集中维护。</p><div class="types"><code>InputWidget</code><code>AppFormField</code><code>GlassSearchField</code></div>
+<ul><li>InputWidget 支持清空、密码显隐、只读、前后缀、输入法类型和自动焦点；只读时不显示清空按钮。</li><li>组件只释放内部创建的控制器；外部 controller 由调用方释放。替换外部 controller 后同步显示新内容。</li><li>AppFormField 的 label / helper / errorText 用于展示，不参与 Form 的自动校验；GlassSearchField 额外支持 onSubmitted。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>InputWidget(
+  controller: nameController,
+  placeholder: &#x27;输入名称&#x27;,
+  cleanable: true,
+  onChanged: onNameChanged,
+)
+
+GlassSearchField(
+  hintText: &#x27;搜索订阅&#x27;,
+  onSubmitted: onSearch,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>InputWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const InputWidget({
+    super.key,
+    this.controller,
+    this.placeholder,
+    this.prefix,
+    this.suffix,
+    this.obscureText = false,
+    this.cleanable = true,
+    this.readOnly = false,
+    this.onChanged,
+    this.keyboardType,
+    this.autofocus,
+    this.onTap,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>TextEditingController? controller
+String? placeholder
+Widget? prefix
+Widget? suffix
+bool? obscureText
+bool? cleanable
+bool? readOnly
+Function(String)? onChanged
+TextInputType? keyboardType
+bool? autofocus
+Function()? onTap</code></pre></details><details><summary><code>AppFormField</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppFormField({
+    super.key,
+    this.label,
+    this.controller,
+    this.hint,
+    this.helper,
+    this.errorText,
+    this.prefix,
+    this.suffix,
+    this.onChanged,
+    this.readOnly = false,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String? label
+TextEditingController? controller
+String? hint
+String? helper
+String? errorText
+Widget? prefix
+Widget? suffix
+ValueChanged&lt;String&gt;? onChanged
+bool readOnly</code></pre></details><details><summary><code>GlassSearchField</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const GlassSearchField({
+    super.key,
+    this.controller,
+    this.hintText = &#x27;搜索&#x27;,
+    this.onChanged,
+    this.onSubmitted,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>TextEditingController? controller
+String hintText
+ValueChanged&lt;String&gt;? onChanged
+ValueChanged&lt;String&gt;? onSubmitted</code></pre></details></div></section><section class="component" id="c-form-input" data-category="交互">
+<div class="eyebrow">07 / 交互</div><h2>表单字段</h2><a class="source" href="../lib/common/widgets/form/input.dart">lib/common/widgets/form/input.dart ↗</a>
+<p class="lead">将输入值、校验和重置接入 Flutter Form。</p><div class="types"><code>InputFormFieldWidget</code><code>InputFormWidgetFieldState</code></div>
+<ul><li>InputFormFieldWidget 必填 labelText，通过 validator 返回错误文字，校验成功返回 null。</li><li>初始值优先使用 controller.text，其次 initValue，再回退为空字符串。程序修改控制器会同步 FormField 的值。</li><li>FormState.reset 恢复当前 initialValue 并同步输入显示。InputFormWidgetFieldState 支持 didChange、reset；控制器所有权规则与 InputWidget 一致。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>// formKey 由页面 State 持有。
+Form(
+  key: formKey,
+  child: InputFormFieldWidget(
+    labelText: &#x27;名称&#x27;,
+    initValue: &#x27;默认分类&#x27;,
+    validator: (value) =&gt;
+        value == null || value.trim().isEmpty ? &#x27;请输入名称&#x27; : null,
+  ),
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>InputFormFieldWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>InputFormFieldWidget({
+    super.key,
+    required this.labelText,
+    this.tipText,
+    this.initValue,
+    this.onChanged,
+    this.controller,
+    this.placeholder,
+    this.prefix,
+    this.suffix,
+    this.obscureText,
+    this.cleanable,
+    this.keyboardType,
+    this.autofocus,
+    this.readOnly,
+    super.validator,
+    this.onTap,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String labelText
+String? tipText
+String? initValue
+TextEditingController? controller
+String? placeholder
+Widget? prefix
+Widget? suffix
+bool? obscureText
+bool? cleanable
+void Function(String?)? onChanged
+TextInputType? keyboardType
+bool? autofocus
+bool? readOnly
+void Function()? onTap</code></pre></details><details><summary><code>InputFormWidgetFieldState</code><span>查看 API</span></summary><p>公开状态类型，使用继承的 FormFieldState 能力及该类的同步实现。</p></details></div></section><section class="component" id="c-checkbox" data-category="交互">
+<div class="eyebrow">08 / 交互</div><h2>复选框</h2><a class="source" href="../lib/common/widgets/checkbox.dart">lib/common/widgets/checkbox.dart ↗</a>
+<p class="lead">无标签时使用 Checkbox，有标签时使用 CheckboxListTile。</p><div class="types"><code>CheckboxWidget</code></div>
+<ul><li>checked 为 null 时按未选中处理；onChanged 为 null 时禁用。</li><li>标题行可点击切换；状态由调用方更新 checked，组件不自行保存选中值。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>CheckboxWidget(
+  checked: accepted,
+  title: &#x27;接收更新提醒&#x27;,
+  onChanged: (value) =&gt; setState(() =&gt; accepted = value ?? false),
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>CheckboxWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const CheckboxWidget({
+    super.key,
+    this.checked,
+    this.title,
+    this.description,
+    this.onChanged,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>bool? checked
+String? title
+String? description
+Function(bool?)? onChanged</code></pre></details></div></section><section class="component" id="c-dialog" data-category="反馈">
+<div class="eyebrow">09 / 反馈</div><h2>对话框</h2><a class="source" href="../lib/common/widgets/dialog.dart">lib/common/widgets/dialog.dart ↗</a>
+<p class="lead">通用内容弹窗与异步确认弹窗。</p><div class="types"><code>DialogWidget</code><code>AppConfirmDialog</code></div>
+<ul><li>DialogWidget.show&lt;T&gt; 返回 Future&lt;T?&gt;；title / description 优先于对应 String 参数，自定义 cancel / confirm 优先于回调生成的按钮。</li><li>DialogWidget 的回调不自动关闭弹窗，调用方负责 Navigator.pop 及结果；默认按钮使用 Material 本地化文案。</li><li>AppConfirmDialog.show 返回 Future&lt;bool?&gt;，接收异步 onConfirm。执行期间禁止退出和重复提交，失败留在弹窗重试，成功返回 true。当前确认按钮文案为“删除”。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>final deleted = await AppConfirmDialog.show(
+  context: context,
+  title: &#x27;删除分类&#x27;,
+  message: &#x27;确认删除这个分类？&#x27;,
+  onConfirm: deleteCategory,
+);
+// deleted == true 表示异步操作成功。</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>DialogWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const DialogWidget({
+    super.key,
+    this.onCancel,
+    this.onConfirm,
+    this.title,
+    this.description,
+    this.content,
+    this.footer,
+    this.titleString,
+    this.descriptionString,
+    this.padding,
+    this.backgroundColor,
+    this.radius,
+    this.border,
+    this.width,
+    this.height,
+    this.elevation,
+    this.cancel,
+    this.confirm,
+  })</code></pre><pre><code>static Future&lt;T?&gt; show&lt;T&gt;({
+    required BuildContext context,
+    Widget? title,
+    Widget? description,
+    Widget? content,
+    Widget? footer,
+    String? titleString,
+    String? descriptionString,
+    double? padding,
+    Color? backgroundColor,
+    double? radius,
+    double? border,
+    double? width,
+    double? height,
+    double? elevation,
+    Widget? confirm,
+    Widget? cancel,
+    void Function()? onConfirm,
+    void Function()? onCancel,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget? title
+Widget? description
+Widget? content
+Widget? footer
+String? titleString
+String? descriptionString
+double? padding
+Color? backgroundColor
+double? radius
+double? border
+double? width
+double? height
+double? elevation
+Widget? cancel
+Widget? confirm
+void Function()? onCancel
+void Function()? onConfirm</code></pre></details><details><summary><code>AppConfirmDialog</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppConfirmDialog({
+    super.key,
+    required this.title,
+    required this.message,
+    required this.onConfirm,
+  })</code></pre><pre><code>static Future&lt;bool?&gt; show({
+    required BuildContext context,
+    required String title,
+    required String message,
+    required Future&lt;void&gt; Function() onConfirm,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String title
+String message
+Future&lt;void&gt; Function() onConfirm</code></pre></details></div></section><section class="component" id="c-bottom_sheet" data-category="反馈">
+<div class="eyebrow">10 / 反馈</div><h2>底部面板</h2><a class="source" href="../lib/common/widgets/bottom_sheet.dart">lib/common/widgets/bottom_sheet.dart ↗</a>
+<p class="lead">通用内容面板与带标题、正文、页脚的项目面板。</p><div class="types"><code>BottomSheetWidget</code><code>AppBottomSheet</code></div>
+<ul><li>BottomSheetWidget.show&lt;T&gt; 接收 content；处理键盘、底部安全区与可滚动内容。自定义操作优先于回调生成的按钮；关闭由调用方处理。</li><li>AppBottomSheet.show&lt;T&gt; 接收 builder，支持 dismissible、enableDrag 和 isScrollControlled；使用根 Navigator。</li><li>AppBottomSheet 接收 body、title、description、trailing、footer；键盘或大字下切换为整块滚动，避免末尾操作不可达。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>await AppBottomSheet.show&lt;void&gt;(
+  context: context,
+  builder: (sheetContext) =&gt; AppBottomSheet(
+    title: &#x27;说明&#x27;,
+    body: const TextWidget.body(&#x27;这里是面板内容。&#x27;),
+    footer: PrimaryButton(
+      label: &#x27;关闭&#x27;,
+      onPressed: () =&gt; Navigator.of(sheetContext).pop(),
+    ),
+  ),
+);</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>BottomSheetWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const BottomSheetWidget({
+    super.key,
+    required this.content,
+    this.title,
+    this.cancel,
+    this.confirm,
+    this.onCancel,
+    this.onConfirm,
+    this.minimum,
+    this.titleString,
+    this.padding,
+    this.backgroundColor,
+    this.radius,
+    this.border,
+    this.width,
+    this.height,
+    this.elevation,
+  })</code></pre><pre><code>static Future&lt;T?&gt; show&lt;T&gt;({
+    required BuildContext context,
+    required Widget content,
+    Widget? title,
+    Widget? confirm,
+    Widget? cancel,
+    String? titleString,
+
+    // 样式
+    double? padding,
+    Color? backgroundColor,
+    double? radius,
+    double? border,
+    double? width,
+    double? height,
+    double? elevation,
+
+    // 回调
+    void Function()? onConfirm,
+    void Function()? onCancel,
+    EdgeInsets? minimum,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget content
+Widget? title
+Widget? cancel
+Widget? confirm
+String? titleString
+double? padding
+Color? backgroundColor
+double? radius
+double? border
+double? width
+double? height
+double? elevation
+void Function()? onCancel
+void Function()? onConfirm
+EdgeInsets? minimum</code></pre></details><details><summary><code>AppBottomSheet</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppBottomSheet({
+    super.key,
+    this.title,
+    this.description,
+    this.trailing,
+    required this.body,
+    this.footer,
+  })</code></pre><pre><code>static Future&lt;T?&gt; show&lt;T&gt;({
+    required BuildContext context,
+    required WidgetBuilder builder,
+    bool isScrollControlled = true,
+    bool dismissible = true,
+    bool enableDrag = true,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String? title
+String? description
+Widget? trailing
+Widget body
+Widget? footer</code></pre></details></div></section><section class="component" id="c-list_tile" data-category="布局">
+<div class="eyebrow">11 / 布局</div><h2>列表与设置项</h2><a class="source" href="../lib/common/widgets/list_tile.dart">lib/common/widgets/list_tile.dart ↗</a>
+<p class="lead">基础列表项、卡片列表行和设置分组。</p><div class="types"><code>ListTileWidget</code><code>ListRowCard</code><code>SettingsTile</code><code>SettingsGroup</code></div>
+<ul><li>ListTileWidget 的 title / subtitle 接受 Widget，trailing 接受 List&lt;Widget&gt;；支持点击、长按及非对称 EdgeInsetsGeometry。</li><li>ListRowCard 的 title 必填且为 String，subtitle 为 String?，trailing 为单个 Widget；可添加 footer、限制标题行数。</li><li>SettingsTile 以 label 展示设置项；SettingsGroup 统一背景、边框、裁切和项间分隔线。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>ListRowCard(
+  leading: const AppAvatar(text: &#x27;TF&#x27;),
+  title: &#x27;DucafeUI&#x27;,
+  subtitle: &#x27;查看频道&#x27;,
+  trailing: const Icon(Icons.chevron_right),
+  onTap: openChannel,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>ListTileWidget</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const ListTileWidget({
+    super.key,
+    this.title,
+    this.subtitle,
+    this.leading,
+    this.leadingSpace,
+    this.trailing,
+    this.trailingSpace,
+    this.padding,
+    this.crossAxisAlignment,
+    this.onTap,
+    this.onLongPress,
+    this.borderRadius,
+    this.borderWidth,
+    this.elevation,
+    this.backgroundColor,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget? title
+Widget? subtitle
+Widget? leading
+double? leadingSpace
+List&lt;Widget&gt;? trailing
+double? trailingSpace
+EdgeInsetsGeometry? padding
+CrossAxisAlignment? crossAxisAlignment
+GestureTapCallback? onTap
+GestureLongPressCallback? onLongPress
+double? borderRadius
+double? borderWidth
+double? elevation
+Color? backgroundColor</code></pre></details><details><summary><code>ListRowCard</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const ListRowCard({
+    super.key,
+    this.leading,
+    required this.title,
+    this.subtitle,
+    this.trailing,
+    this.onTap,
+    this.footer,
+    this.padding,
+    this.subtitleSpacing = 2,
+    this.titleMaxLines,
+    this.titleOverflow,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget? leading
+String title
+String? subtitle
+Widget? trailing
+VoidCallback? onTap
+Widget? footer
+EdgeInsetsGeometry? padding
+double subtitleSpacing
+int? titleMaxLines
+TextOverflow? titleOverflow</code></pre></details><details><summary><code>SettingsTile</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const SettingsTile({
+    super.key,
+    required this.label,
+    this.trailing,
+    this.leading,
+    this.onTap,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String label
+Widget? trailing
+Widget? leading
+VoidCallback? onTap</code></pre></details><details><summary><code>SettingsGroup</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const SettingsGroup({super.key, required this.children})</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>List&lt;Widget&gt; children</code></pre></details></div></section><section class="component" id="c-card" data-category="布局">
+<div class="eyebrow">12 / 布局</div><h2>卡片</h2><a class="source" href="../lib/common/widgets/card.dart">lib/common/widgets/card.dart ↗</a>
+<p class="lead">玻璃卡片外壳与数字统计卡片。</p><div class="types"><code>GlassCard</code><code>StatCard</code></div>
+<ul><li>GlassCard 默认关闭模糊，适合密集列表；onTap 的点击范围包含 padding。</li><li>StatCard 使用 GlassCard，value 和 label 均为必填字符串。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const StatCard(value: &#x27;128&#x27;, label: &#x27;已读视频&#x27;)
+
+const GlassCard(
+  padding: EdgeInsets.all(AppSpacing.card),
+  child: TextWidget.body(&#x27;卡片内容&#x27;),
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>GlassCard</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const GlassCard({
+    super.key,
+    required this.child,
+    this.enableBlur = false,
+    this.blurSigma = AppGlass.blurLight,
+    this.borderRadius,
+    this.padding,
+    this.onTap,
+    this.clipBehavior = Clip.antiAlias,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget child
+bool enableBlur
+double blurSigma
+BorderRadius? borderRadius
+EdgeInsetsGeometry? padding
+VoidCallback? onTap
+Clip clipBehavior</code></pre></details><details><summary><code>StatCard</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const StatCard({super.key, required this.value, required this.label})</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String value
+String label</code></pre></details></div></section><section class="component" id="c-chip" data-category="交互">
+<div class="eyebrow">13 / 交互</div><h2>分类与筛选</h2><a class="source" href="../lib/common/widgets/chip.dart">lib/common/widgets/chip.dart ↗</a>
+<p class="lead">分类胶囊和横向滚动筛选行。</p><div class="types"><code>AppCategoryChip</code><code>FilterChipItem</code><code>FilterChipRow</code></div>
+<ul><li>AppCategoryChip 只负责视觉，label 必填；selected、showDot 和 color 控制表现，没有点击回调。</li><li>FilterChipRow 接收 FilterChipItem 列表、selectedValue 和 onSelected，负责点击区域与选中语义。调用方更新 selectedValue。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>FilterChipRow(
+  items: const [
+    FilterChipItem(value: &#x27;all&#x27;, label: &#x27;全部&#x27;),
+    FilterChipItem(value: &#x27;unread&#x27;, label: &#x27;未读&#x27;),
+  ],
+  selectedValue: filter,
+  onSelected: onFilterChanged,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>AppCategoryChip</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppCategoryChip({
+    super.key,
+    required this.label,
+    this.color,
+    this.selected = false,
+    this.showDot = true,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String label
+Color? color
+bool selected
+bool showDot</code></pre></details><details><summary><code>FilterChipItem</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const FilterChipItem({required this.value, required this.label, this.color})</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String value
+String label
+Color? color</code></pre></details><details><summary><code>FilterChipRow</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const FilterChipRow({
+    super.key,
+    required this.items,
+    required this.selectedValue,
+    required this.onSelected,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>List&lt;FilterChipItem&gt; items
+String selectedValue
+ValueChanged&lt;String&gt; onSelected</code></pre></details></div></section><section class="component" id="c-tabs" data-category="导航">
+<div class="eyebrow">14 / 导航</div><h2>选项卡与底部导航</h2><a class="source" href="../lib/common/widgets/tabs.dart">lib/common/widgets/tabs.dart ↗</a>
+<p class="lead">分段、下划线和底部 Tab 导航。</p><div class="types"><code>SegmentedTabs</code><code>UnderlineTabs</code><code>AppBottomTabBarItem</code><code>AppBottomTabBar</code></div>
+<ul><li>SegmentedTabs 与 UnderlineTabs 使用 labels / selectedIndex / onChanged，选中状态由调用方维护。</li><li>AppBottomTabBar 接收 AppBottomTabBarItem 列表及 activeIndex。Item 必填 icon、activeIcon、label。</li><li>底部内容占位使用 AppBottomTabBar.contentInsetOf(context)，包括安全区与大字引起的高度变化。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>SegmentedTabs(
+  labels: const [&#x27;未读&#x27;, &#x27;已读&#x27;],
+  selectedIndex: selectedIndex,
+  onChanged: onTabChanged,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>SegmentedTabs</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const SegmentedTabs({
+    super.key,
+    required this.labels,
+    required this.selectedIndex,
+    required this.onChanged,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>List&lt;String&gt; labels
+int selectedIndex
+ValueChanged&lt;int&gt; onChanged</code></pre></details><details><summary><code>UnderlineTabs</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const UnderlineTabs({
+    super.key,
+    required this.labels,
+    required this.selectedIndex,
+    required this.onChanged,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>List&lt;String&gt; labels
+int selectedIndex
+ValueChanged&lt;int&gt; onChanged</code></pre></details><details><summary><code>AppBottomTabBarItem</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppBottomTabBarItem({
+    required this.icon,
+    required this.activeIcon,
+    required this.label,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>IconData icon
+IconData activeIcon
+String label</code></pre></details><details><summary><code>AppBottomTabBar</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const AppBottomTabBar({
+    super.key,
+    required this.items,
+    required this.activeIndex,
+    required this.onChanged,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>List&lt;AppBottomTabBarItem&gt; items
+int activeIndex
+ValueChanged&lt;int&gt; onChanged</code></pre></details></div></section><section class="component" id="c-header" data-category="导航">
+<div class="eyebrow">15 / 导航</div><h2>导航标题与分区标题</h2><a class="source" href="../lib/common/widgets/header.dart">lib/common/widgets/header.dart ↗</a>
+<p class="lead">页面顶部导航和内容分区标题；顶部动作按钮位于 button.dart。</p><div class="types"><code>TopBar</code><code>SectionHeader</code></div>
+<ul><li>TopBar 支持 leading、onBack、title、trailing。未设置 leading 且存在 onBack 时生成返回按钮；centered 默认 true。</li><li>transparent=true 返回无玻璃背景的导航行。SectionHeader 必填 title，显示大写标题并可附加 trailing。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>TopBar(
+  title: &#x27;编辑分类&#x27;,
+  onBack: () =&gt; Navigator.of(context).pop(),
+  trailing: [TopBarAction(label: &#x27;保存&#x27;, onPressed: onSave)],
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>TopBar</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const TopBar({
+    super.key,
+    this.leading,
+    this.onBack,
+    this.title,
+    this.trailing,
+    this.centered = true,
+    this.transparent = false,
+    this.foregroundColor,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget? leading
+VoidCallback? onBack
+String? title
+List&lt;Widget&gt;? trailing
+bool centered
+bool transparent
+Color? foregroundColor</code></pre></details><details><summary><code>SectionHeader</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const SectionHeader({super.key, required this.title, this.trailing})</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String title
+Widget? trailing</code></pre></details></div></section><section class="component" id="c-state" data-category="反馈">
+<div class="eyebrow">16 / 反馈</div><h2>空状态与结果反馈</h2><a class="source" href="../lib/common/widgets/state.dart">lib/common/widgets/state.dart ↗</a>
+<p class="lead">空内容、处理中、成功和错误等结果展示。</p><div class="types"><code>EmptyStateView</code><code>ResultStatus</code><code>ResultTone</code><code>ResultStateCard</code></div>
+<ul><li>EmptyStateView 必填 message，可自定义 icon。</li><li>ResultStateCard 必填 icon、title；status 表示 idle / loading / success / error，tone 表示 neutral / success / warning / danger，二者独立。</li><li>loading 显示进度指示器；error 且提供 onRetry 时追加重试按钮，也可使用 actions 自定义操作。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>ResultStateCard(
+  icon: Icons.error_outline,
+  title: &#x27;加载失败&#x27;,
+  desc: &#x27;请稍后重试&#x27;,
+  status: ResultStatus.error,
+  tone: ResultTone.warning,
+  onRetry: reload,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>EmptyStateView</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const EmptyStateView({
+    super.key,
+    required this.message,
+    this.icon = Icons.inbox_outlined,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>String message
+IconData icon</code></pre></details><details><summary><code>ResultStatus</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum ResultStatus { idle, loading, success, error }</code></pre></details><details><summary><code>ResultTone</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum ResultTone { neutral, success, warning, danger }</code></pre></details><details><summary><code>ResultStateCard</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const ResultStateCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.desc,
+    this.tone = ResultTone.success,
+    this.actions,
+    this.status = ResultStatus.idle,
+    this.onRetry,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>IconData icon
+String title
+String? desc
+ResultTone tone
+ResultStatus status
+VoidCallback? onRetry
+List&lt;Widget&gt;? actions</code></pre></details></div></section><section class="component" id="c-surface" data-category="布局">
+<div class="eyebrow">17 / 布局</div><h2>玻璃表面</h2><a class="source" href="../lib/common/widgets/surface.dart">lib/common/widgets/surface.dart ↗</a>
+<p class="lead">玻璃背景、模糊、边框、裁切与阴影的底层实现。</p><div class="types"><code>GlassSurface</code></div>
+<ul><li>GlassSurface 必填 child，支持 gradient / color、borderColor / borderWidth、boxShadow、padding 和尺寸。</li><li>是否模糊由 enableBlur 与主题玻璃开关共同控制。常规内容优先使用 GlassCard，定制背景时使用 GlassSurface。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const GlassSurface(
+  enableBlur: false,
+  padding: EdgeInsets.all(AppSpacing.card),
+  child: TextWidget.body(&#x27;面板内容&#x27;),
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>GlassSurface</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const GlassSurface({
+    super.key,
+    required this.child,
+    this.borderRadius,
+    this.blurSigma = AppGlass.blurHeader,
+    this.enableBlur = true,
+    this.gradient,
+    this.color,
+    this.borderColor,
+    this.borderWidth = 1,
+    this.boxShadow,
+    this.width,
+    this.height,
+    this.padding,
+    this.clipBehavior = Clip.antiAlias,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget child
+BorderRadius? borderRadius
+double blurSigma
+bool enableBlur
+Gradient? gradient
+Color? color
+Color? borderColor
+double borderWidth
+List&lt;BoxShadow&gt;? boxShadow
+double? width
+double? height
+EdgeInsetsGeometry? padding
+Clip clipBehavior</code></pre></details></div></section><section class="component" id="c-scaffold" data-category="布局">
+<div class="eyebrow">18 / 布局</div><h2>页面容器</h2><a class="source" href="../lib/common/widgets/scaffold.dart">lib/common/widgets/scaffold.dart ↗</a>
+<p class="lead">统一背景、安全区、内容留白和页脚。</p><div class="types"><code>PageScaffold</code></div>
+<ul><li>PageScaffold 必填 body，支持 topBar、footer、padding、scrollable、safeAreaTop / safeAreaBottom。</li><li>默认正文有水平页面留白；fullBleed=true 去掉默认留白，显式 padding 始终优先。</li><li>内容自行拥有列表滚动时保持 scrollable=false；组件在可用高度很小时处理页脚可达性。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>PageScaffold(
+  topBar: TopBar(title: &#x27;订阅&#x27;),
+  body: const TextWidget.body(&#x27;订阅内容&#x27;),
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>PageScaffold</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const PageScaffold({
+    super.key,
+    this.topBar,
+    required this.body,
+    this.footer,
+    this.backgroundColor,
+    this.padding,
+    this.scrollable = false,
+    this.safeAreaTop = true,
+    this.safeAreaBottom = true,
+    this.fullBleed = false,
+  })</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>Widget? topBar
+Widget body
+Widget? footer
+Color? backgroundColor
+EdgeInsetsGeometry? padding
+bool scrollable
+bool safeAreaTop
+bool safeAreaBottom
+bool fullBleed</code></pre></details></div></section><section class="component" id="c-widget_scale" data-category="基础">
+<div class="eyebrow">19 / 基础</div><h2>尺寸档位</h2><a class="source" href="../lib/common/widgets/widget_scale.dart">lib/common/widgets/widget_scale.dart ↗</a>
+<p class="lead">基础组件共享的尺寸枚举。</p><div class="types"><code>WidgetScale</code></div>
+<ul><li>WidgetScale.small / medium / large 供 ButtonWidget、TextWidget 使用。</li><li>ButtonWidget 缩放字体和内边距；TextWidget 缩放字号。该枚举不会替代 Flutter 系统文字缩放。</li></ul>
+<div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const TextWidget.body(
+  &#x27;辅助说明&#x27;,
+  scale: WidgetScale.small,
+)</code></pre></div>
+<div class="api"><h3>接口参考</h3><details><summary><code>WidgetScale</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum WidgetScale { small, medium, large }</code></pre></details></div></section>
+<section class="guide"><h2>验证与维护</h2><p>基础行为见 test/widgets/widgets_test.dart；项目视觉与交互见 test/style/style_widgets_test.dart；主题见 test/style/app_style_test.dart。涉及页面组合时再运行对应页面测试。</p><pre><code>flutter analyze --no-pub
+flutter test --no-pub test/widgets test/style/style_widgets_test.dart test/style/app_style_test.dart</code></pre></section>
+<footer>DucafeUI / 组件说明 · 源码为准 · 本页为开发参考，示例不代表 Flutter 实机渲染预览。</footer></main><script>
+// 文档全部内容预先渲染，脚本仅增强搜索、主题切换与代码复制。
+const root=document.documentElement, sections=[...document.querySelectorAll('.component')];
+let category='全部';
+const input=document.querySelector('#search');
+function filter(){let count=0;const term=input.value.trim().toLowerCase();sections.forEach(s=>{const visible=(category==='全部'||s.dataset.category===category)&&s.textContent.toLowerCase().includes(term);s.hidden=!visible;if(visible)count++;document.querySelector('nav a[href="#'+s.id+'"]').hidden=!visible;});document.querySelector('#count').textContent='显示 '+count+' / '+sections.length+' 个功能模块';document.querySelector('#empty').hidden=count!==0;}
+input.addEventListener('input',filter);
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{category=b.textContent;document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));filter();}));
+document.querySelector('#theme').addEventListener('click',()=>{const dark=root.dataset.theme!=='dark';root.dataset.theme=dark?'dark':'light';document.querySelector('#theme').textContent=dark?'浅色外观':'深色外观';});
+document.querySelector('#expand').addEventListener('click',()=>{const opening=document.querySelector('#expand').getAttribute('aria-expanded')!=='true';document.querySelectorAll('details').forEach(d=>d.open=opening);document.querySelector('#expand').setAttribute('aria-expanded',String(opening));document.querySelector('#expand').textContent=opening?'收起 API':'展开 API';});
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{const code=b.closest('.example').querySelector('code');try{await navigator.clipboard.writeText(code.textContent);b.textContent='已复制';}catch(e){const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);b.textContent='已选中，请复制';}setTimeout(()=>b.textContent='复制',2000);}));
+filter();
+</script></body></html>
