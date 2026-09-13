@@ -16,10 +16,12 @@ import &#x27;../widgets/index.dart&#x27;;
 
 // common/widgets 内部使用
 import &#x27;button.dart&#x27;;</code></pre><p>以上是不同文件位置的导入示例，不在同一文件中同时引入。页面还需按使用情况导入 Flutter Material。使用片段中的 controller、回调、状态和 key 由页面提供；示例中文用于说明，正式业务文案使用 TrKeys。</p><p>样式复用 AppStyle、AppTextStyles、AppRadius 与 AppSpacing；新增组件按功能归入现有文件，并维护 widgets/index.dart。表单通过 form/index.dart 导出。接口参考展示本次生成时的源码签名，代码变更后需同步更新本说明。</p><p><a href="架构说明.md">架构说明 ↗</a> · <a href="2-设计/4-组件抽取规范.html">组件抽取规范 ↗</a></p></section>
+<!-- 应用内预览入口与真实交互说明，独立于组件搜索结果。 -->
+<section class="guide" id="playground"><h2>应用内组件调试</h2><p>登录后打开<strong>Home 右上角 → 组件样式</strong>，路由为 <code>AppRoutes.componentStyles</code>（<code>/component-styles</code>），页面源码见 <a href="../lib/pages/component_styles/component_styles_page.dart">ComponentStylesPage</a>。按基础、按钮、表单、卡片、导航、反馈六组查看真实公共组件；顶部主题按钮复用应用菜单，会同步应用主题。</p><p>支持密码显隐与清空、表单校验和重置、加载模拟、选项切换、对话框与底部面板，以及首次失败后重试的确认流程。演示交互使用页面本地状态，不删除真实业务数据。本文 HTML 用于查阅接口，Flutter 实际效果通过该入口调试。</p></section>
 <div id="empty" hidden>没有匹配的组件，请更换关键词或选择“全部”。</div><section class="component" id="c-button" data-category="交互">
 <div class="eyebrow">01 / 交互</div><h2>按钮</h2><a class="source" href="../lib/common/widgets/button.dart">lib/common/widgets/button.dart ↗</a>
 <p class="lead">通用按钮、项目主次按钮、玻璃图标按钮和顶部动作集中维护。</p><div class="types"><code>ButtonWidgetVariant</code><code>ButtonWidget</code><code>AppButtonVariant</code><code>AppButtonSize</code><code>AppButton</code><code>PrimaryButton</code><code>GhostButton</code><code>GlassIconButton</code><code>TopBarAction</code></div>
-<ul><li>ButtonWidget 支持 primary、secondary、destructive、outline、ghost、link、icon；文案为 text，回调为 onTap，icon 接受 Widget。</li><li>AppButton 使用 label / onPressed，icon 接受 IconData，默认 expanded=true。PrimaryButton 和 GhostButton 复用 AppButton。</li><li>加载时两类按钮都禁止重复点击。AppButton 隐藏文案绘制但保留布局；ButtonWidget 在内容旁追加加载指示器。</li><li>GlassIconButton 默认视觉尺寸 32，触控区域至少 48；semanticLabel 必填。TopBarAction 的基准视觉高度为 32，支持大字自适应。</li></ul>
+<ul><li>ButtonWidget 支持 primary、secondary、destructive、outline、ghost、link、icon；文案为 text，回调为 onTap，icon 接受 Widget。</li><li>AppButton 使用 label / onPressed，icon 接受 IconData，默认 expanded=true。PrimaryButton 和 GhostButton 复用 AppButton。</li><li>加载时两类按钮都禁止重复点击。AppButton 隐藏文案绘制但保留布局；ButtonWidget 在内容旁追加加载指示器。</li><li>GlassIconButton 默认视觉尺寸 32，触控区域至少 48；semanticLabel 必填。TopBarAction 的基准视觉高度为 32，支持大字自适应。</li><li>ButtonWidget 与 AppButton 均使用 1.2 倍行高及 TextLeadingDistribution.even，均分上下额外行距；WidgetScale 仍按档位缩放字号。同排不同尺寸按钮可通过 WrapCrossAlignment.center 居中对齐。</li><li>GlassIconButton 将原生 IconButton 放在可见圆形内部，玻璃及 onMedia 背景均裁切水波纹；外围透明命中区至少 48 × 48，保留 semanticLabel、tooltip 与键盘操作。</li><li>TopBarAction 的水波纹由可见按钮内部的透明 Material 承载，按 AppRadius.button 裁切；上下各 8px 留白可点击但不绘制水波纹。enabled=false 或 loading=true 时内外点击均禁用。</li></ul>
 <div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>// 示例中的回调与状态由所在页面提供。
 PrimaryButton(
   label: &#x27;保存&#x27;,
@@ -932,7 +934,7 @@ Widget body
 Widget? footer</code></pre></details></div></section><section class="component" id="c-list_tile" data-category="布局">
 <div class="eyebrow">11 / 布局</div><h2>列表与设置项</h2><a class="source" href="../lib/common/widgets/list_tile.dart">lib/common/widgets/list_tile.dart ↗</a>
 <p class="lead">基础列表项、卡片列表行和设置分组。</p><div class="types"><code>ListTileWidget</code><code>ListRowCard</code><code>SettingsTile</code><code>SettingsGroup</code></div>
-<ul><li>ListTileWidget 的 title / subtitle 接受 Widget，trailing 接受 List&lt;Widget&gt;；支持点击、长按及非对称 EdgeInsetsGeometry。</li><li>ListRowCard 的 title 必填且为 String，subtitle 为 String?，trailing 为单个 Widget；可添加 footer、限制标题行数。</li><li>SettingsTile 以 label 展示设置项；SettingsGroup 统一背景、边框、裁切和项间分隔线。</li></ul>
+<ul><li>ListTileWidget 的 title / subtitle 接受 Widget，trailing 接受 List&lt;Widget&gt;；支持点击、长按及非对称 EdgeInsetsGeometry。</li><li>ListRowCard 的 title 必填且为 String，subtitle 为 String?，trailing 为单个 Widget；可添加 footer、限制标题行数。</li><li>SettingsTile 以 label 展示设置项；SettingsGroup 统一背景、边框、裁切和项间分隔线。</li><li>SettingsGroup 在卡片背景上方提供独立透明 Material，并随分组圆角裁切 SettingsTile 的水波纹，避免反馈画到页面背景或相邻行。单独组合 SettingsTile 时，调用方也需保证背景上方存在合适的 Material。</li></ul>
 <div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>ListRowCard(
   leading: const AppAvatar(text: &#x27;TF&#x27;),
   title: &#x27;DucafeUI&#x27;,
@@ -1002,12 +1004,14 @@ Widget? leading
 VoidCallback? onTap</code></pre></details><details><summary><code>SettingsGroup</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const SettingsGroup({super.key, required this.children})</code></pre><p class="caption">本类声明的公开字段（继承字段见父类）</p><pre><code>List&lt;Widget&gt; children</code></pre></details></div></section><section class="component" id="c-card" data-category="布局">
 <div class="eyebrow">12 / 布局</div><h2>卡片</h2><a class="source" href="../lib/common/widgets/card.dart">lib/common/widgets/card.dart ↗</a>
 <p class="lead">玻璃卡片外壳与数字统计卡片。</p><div class="types"><code>GlassCard</code><code>StatCard</code></div>
-<ul><li>GlassCard 默认关闭模糊，适合密集列表；onTap 的点击范围包含 padding。</li><li>StatCard 使用 GlassCard，value 和 label 均为必填字符串。</li></ul>
+<ul><li>GlassCard 默认关闭模糊，适合密集列表；onTap 的点击范围包含 padding。</li><li>StatCard 使用 GlassCard，value 和 label 均为必填字符串。</li><li>GlassCard.padding 未传时按 EdgeInsets.zero 处理，不自动添加 16px。普通内容卡片显式使用 const EdgeInsets.all(AppSpacing.card)，可点击示例同样保留四周 16px 留白。</li><li>GlassCard 通过 GlassSurface 在背景上方绘制 InkWell 反馈，水波纹与卡片共用圆角，点击范围包括 padding。</li></ul>
 <div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const StatCard(value: &#x27;128&#x27;, label: &#x27;已读视频&#x27;)
 
-const GlassCard(
-  padding: EdgeInsets.all(AppSpacing.card),
-  child: TextWidget.body(&#x27;卡片内容&#x27;),
+// 明确内容留白，点击范围覆盖整个卡片。
+GlassCard(
+  padding: const EdgeInsets.all(AppSpacing.card),
+  onTap: onCardTap,
+  child: const TextWidget.body(&#x27;可点击卡片&#x27;),
 )</code></pre></div>
 <div class="api"><h3>接口参考</h3><details><summary><code>GlassCard</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>const GlassCard({
     super.key,
@@ -1028,7 +1032,7 @@ Clip clipBehavior</code></pre></details><details><summary><code>StatCard</code><
 String label</code></pre></details></div></section><section class="component" id="c-chip" data-category="交互">
 <div class="eyebrow">13 / 交互</div><h2>分类与筛选</h2><a class="source" href="../lib/common/widgets/chip.dart">lib/common/widgets/chip.dart ↗</a>
 <p class="lead">分类胶囊和横向滚动筛选行。</p><div class="types"><code>AppCategoryChip</code><code>FilterChipItem</code><code>FilterChipRow</code></div>
-<ul><li>AppCategoryChip 只负责视觉，label 必填；selected、showDot 和 color 控制表现，没有点击回调。</li><li>FilterChipRow 接收 FilterChipItem 列表、selectedValue 和 onSelected，负责点击区域与选中语义。调用方更新 selectedValue。</li></ul>
+<ul><li>AppCategoryChip 只负责视觉，label 必填；selected、showDot 和 color 控制表现，没有点击回调。</li><li>FilterChipRow 接收 FilterChipItem 列表、selectedValue 和 onSelected，负责点击区域与选中语义。调用方更新 selectedValue。</li><li>FilterChipRow 将至少 48px 的外层点击区与可见胶囊分开：背景先绘制，胶囊内透明 Material 再绘制水波纹，圆角裁切与实际尺寸一致。外围留白仍能触发 onSelected，但不承载水波纹。AppCategoryChip 的公开构造仍仅负责静态展示。</li></ul>
 <div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>FilterChipRow(
   items: const [
     FilterChipItem(value: &#x27;all&#x27;, label: &#x27;全部&#x27;),
@@ -1058,7 +1062,7 @@ String selectedValue
 ValueChanged&lt;String&gt; onSelected</code></pre></details></div></section><section class="component" id="c-tabs" data-category="导航">
 <div class="eyebrow">14 / 导航</div><h2>选项卡与底部导航</h2><a class="source" href="../lib/common/widgets/tabs.dart">lib/common/widgets/tabs.dart ↗</a>
 <p class="lead">分段、下划线和底部 Tab 导航。</p><div class="types"><code>SegmentedTabs</code><code>UnderlineTabs</code><code>AppBottomTabBarItem</code><code>AppBottomTabBar</code></div>
-<ul><li>SegmentedTabs 与 UnderlineTabs 使用 labels / selectedIndex / onChanged，选中状态由调用方维护。</li><li>AppBottomTabBar 接收 AppBottomTabBarItem 列表及 activeIndex。Item 必填 icon、activeIcon、label。</li><li>底部内容占位使用 AppBottomTabBar.contentInsetOf(context)，包括安全区与大字引起的高度变化。</li></ul>
+<ul><li>SegmentedTabs 与 UnderlineTabs 使用 labels / selectedIndex / onChanged，选中状态由调用方维护。</li><li>AppBottomTabBar 接收 AppBottomTabBarItem 列表及 activeIndex。Item 必填 icon、activeIcon、label。</li><li>底部内容占位使用 AppBottomTabBar.contentInsetOf(context)，包括安全区与大字引起的高度变化。</li><li>SegmentedTabs 基准外框高度 40、选项高度 32、触控高度 48；大字时增加高度。每个选项在自身背景上方提供透明 Material，并按 AppRadius.lg 裁切水波纹；外围透明留白仍可切换，反馈不扩散到相邻选项。</li></ul>
 <div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>SegmentedTabs(
   labels: const [&#x27;未读&#x27;, &#x27;已读&#x27;],
   selectedIndex: selectedIndex,
@@ -1151,7 +1155,7 @@ VoidCallback? onRetry
 List&lt;Widget&gt;? actions</code></pre></details></div></section><section class="component" id="c-surface" data-category="布局">
 <div class="eyebrow">17 / 布局</div><h2>玻璃表面</h2><a class="source" href="../lib/common/widgets/surface.dart">lib/common/widgets/surface.dart ↗</a>
 <p class="lead">玻璃背景、模糊、边框、裁切与阴影的底层实现。</p><div class="types"><code>GlassSurface</code></div>
-<ul><li>GlassSurface 必填 child，支持 gradient / color、borderColor / borderWidth、boxShadow、padding 和尺寸。</li><li>是否模糊由 enableBlur 与主题玻璃开关共同控制。常规内容优先使用 GlassCard，定制背景时使用 GlassSurface。</li></ul>
+<ul><li>GlassSurface 必填 child，支持 gradient / color、borderColor / borderWidth、boxShadow、padding 和尺寸。</li><li>是否模糊由 enableBlur 与主题玻璃开关共同控制。常规内容优先使用 GlassCard，定制背景时使用 GlassSurface。</li><li>GlassSurface 的背景上方有透明 Material，圆角裁切同时覆盖内容与 ink 层。组合可点击内容时，避免把 InkWell 放在不透明背景外层而向页面级 Material 绘制。</li></ul>
 <div class="example"><div class="codebar"><span>DART · 使用片段</span><button type="button" class="copy">复制</button></div><pre><code>const GlassSurface(
   enableBlur: false,
   padding: EdgeInsets.all(AppSpacing.card),
@@ -1220,8 +1224,8 @@ bool fullBleed</code></pre></details></div></section><section class="component" 
   scale: WidgetScale.small,
 )</code></pre></div>
 <div class="api"><h3>接口参考</h3><details><summary><code>WidgetScale</code><span>查看 API</span></summary><p class="caption">构造方法 / 弹出方法 · 参数与默认值来自当前源文件</p><pre><code>enum WidgetScale { small, medium, large }</code></pre></details></div></section>
-<section class="guide"><h2>验证与维护</h2><p>基础行为见 test/widgets/widgets_test.dart；项目视觉与交互见 test/style/style_widgets_test.dart；主题见 test/style/app_style_test.dart。涉及页面组合时再运行对应页面测试。</p><pre><code>flutter analyze --no-pub
-flutter test --no-pub test/widgets test/style/style_widgets_test.dart test/style/app_style_test.dart</code></pre></section>
+<section class="guide"><h2>验证与维护</h2><p>水波纹像素回归：<a href="../test/widgets/filter_chip_ink_test.dart">筛选胶囊</a>、<a href="../test/widgets/segmented_tabs_ink_test.dart">分段选项</a>、<a href="../test/widgets/settings_group_ink_test.dart">设置分组</a>、<a href="../test/widgets/top_bar_ink_test.dart">顶部按钮</a>；页面布局与演示交互见 <a href="../test/pages/component_styles_page_test.dart">组件样式页面测试</a>。像素检查覆盖亮暗主题下可见区域内的反馈与边界外污染；键盘、禁用、加载和触控尺寸由相关组件测试补充。</p><p>基础行为见 test/widgets/widgets_test.dart；项目视觉与交互见 test/style/style_widgets_test.dart；主题见 test/style/app_style_test.dart。涉及页面组合时再运行对应页面测试。</p><pre><code>flutter analyze --no-pub
+flutter test --no-pub test/widgets test/style/style_widgets_test.dart test/style/app_style_test.dart test/pages/component_styles_page_test.dart</code></pre></section>
 <footer>DucafeUI / 组件说明 · 源码为准 · 本页为开发参考，示例不代表 Flutter 实机渲染预览。</footer></main><script>
 // 文档全部内容预先渲染，脚本仅增强搜索、主题切换与代码复制。
 const root=document.documentElement, sections=[...document.querySelectorAll('.component')];

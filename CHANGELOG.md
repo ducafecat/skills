@@ -2,7 +2,11 @@
 
 All notable changes to this repository will be documented in this file.
 
-## [1.0.4] - 2026-09-13
+## [1.0.5] - 2026-09-13
+
+- add flutter-getx-init UI 组件样式表
+
+## [1.0.4] - 2026-09-12
 
 - add flutter-getx-init getx 脚手架
 

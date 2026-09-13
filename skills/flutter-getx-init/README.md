@@ -9,7 +9,7 @@
 - Splash 展示应用名，固定 0.5 秒后分流
 - Welcome 三页 `PageView`，最后一页点「开始」
 - Login 预填 `AppConfig.demoEmail` / `demoPassword`（`ducafecat@gmail.com` / `123456`）
-- Home 单页，右上角两个按钮通过 `showModalBottomSheet` 切主题（浅色 / 深色 / 跟随系统）和语言（en / zh-CN / zh-TW）；不含 Tab 壳，禁止 `Get.back`
+- Home 单页，右上角新增组件样式入口，另外两个按钮通过 `showModalBottomSheet` 切主题（浅色 / 深色 / 跟随系统）和语言（en / zh-CN / zh-TW）；不含 Tab 壳，禁止 `Get.back`
 
 ## Not suitable for
 
@@ -38,6 +38,7 @@
 - Agent 入口：[`SKILL.md`](./SKILL.md)
 - 文件模板：[`references/file-templates.md`](./references/file-templates.md)
 - 组件源码：[`assets/lib/common/widgets/`](./assets/lib/common/widgets/)
+- 组件调试页：[`assets/lib/pages/component_styles/`](./assets/lib/pages/component_styles/)
 - 离线组件说明：[`assets/docs/组件说明.html`](./assets/docs/组件说明.html)
 - 离线样式规范：[`assets/docs/样式规范.html`](./assets/docs/样式规范.html)
 - 架构说明：[`references/architecture.md`](./references/architecture.md)

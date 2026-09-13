@@ -274,7 +274,12 @@ class SettingsGroup extends StatelessWidget {
         boxShadow: context.appStyle.cardShadow,
       ),
       clipBehavior: Clip.hardEdge,
-      child: Column(children: items),
+      // 分组拥有自己的 ink 层：反馈在卡片背景上方绘制，并随外层圆角裁切。
+      // 否则 SettingsTile 的 InkWell 会把水波纹画到页面级 Material 上。
+      child: Material(
+        type: MaterialType.transparency,
+        child: Column(children: items),
+      ),
     );
   }
 }

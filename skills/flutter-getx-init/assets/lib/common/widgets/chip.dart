@@ -13,8 +13,18 @@ class AppCategoryChip extends StatelessWidget {
     this.color,
     this.selected = false,
     this.showDot = true,
+  }) : _onTap = null;
+
+  /// 交互胶囊在背景上方创建独立 ink 层，尺寸直接由内容撑开。
+  const AppCategoryChip._interactive(
+    this._onTap, {
+    required this.label,
+    required this.color,
+    required this.selected,
+    required this.showDot,
   });
 
+  final VoidCallback? _onTap;
   final String label;
   final Color? color;
   final bool selected;
@@ -30,32 +40,51 @@ class AppCategoryChip extends StatelessWidget {
         ? context.appPrimary
         : color?.withValues(alpha: 0.40) ?? context.appBorder;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(AppRadius.pill),
-        border: Border.all(color: border),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (showDot) ...[
-            Container(
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
-            ),
-            const SizedBox(width: 6),
-          ],
-          Text(
-            label,
-            style: AppTextStyles.secondary.copyWith(
-              color: selected ? context.appPrimaryFg : context.appForeground,
-              fontWeight: FontWeight.w600,
-            ),
+    final decoration = BoxDecoration(
+      color: background,
+      borderRadius: BorderRadius.circular(AppRadius.pill),
+      border: Border.all(color: border),
+    );
+    final child = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (showDot) ...[
+          Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
           ),
+          const SizedBox(width: 6),
         ],
+        Text(
+          label,
+          style: AppTextStyles.secondary.copyWith(
+            color: selected ? context.appPrimaryFg : context.appForeground,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+    const padding = EdgeInsets.symmetric(horizontal: 12, vertical: 6);
+    if (_onTap == null) {
+      return Container(padding: padding, decoration: decoration, child: child);
+    }
+    // 先绘制背景，再绘制透明 Material 中的水波纹，最后绘制文字。
+    return DecoratedBox(
+      decoration: decoration,
+      child: Material(
+        type: MaterialType.transparency,
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppRadius.pill),
+          onTap: _onTap,
+          // 补上 Container 原本自动计算的 1px 边框留白，保持尺寸不变。
+          child: Padding(
+            padding: padding.add(decoration.padding),
+            child: child,
+          ),
+        ),
       ),
     );
   }
@@ -106,22 +135,19 @@ class FilterChipRow extends StatelessWidget {
           return Semantics(
             selected: selected,
             button: true,
-            child: SizedBox(
-              height: double.infinity,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => onSelected(item.value),
-                  borderRadius: BorderRadius.circular(AppRadius.pill),
-                  child: Center(
-                    widthFactor: 1,
-                    child: AppCategoryChip(
-                      label: item.label,
-                      color: color,
-                      selected: selected,
-                      showDot: color != null,
-                    ),
-                  ),
+            child: GestureDetector(
+              // 外层透明留白仅扩大命中范围，不承载任何 ink 绘制。
+              behavior: HitTestBehavior.opaque,
+              excludeFromSemantics: true,
+              onTap: () => onSelected(item.value),
+              child: Center(
+                widthFactor: 1,
+                child: AppCategoryChip._interactive(
+                  () => onSelected(item.value),
+                  label: item.label,
+                  color: color,
+                  selected: selected,
+                  showDot: color != null,
                 ),
               ),
             ),

@@ -8360,6 +8360,8 @@ export 'auth_api.dart';
 /// 应用翻译键，避免页面散落字面量。
 abstract final class TrKeys {
   // 引导页及首页设置菜单文案。
+  // Home 与组件目录共用标题。
+  static const componentStyles = 'componentStyles';
   static const next = 'next';
   static const welcomeThemeTitle = 'welcomeThemeTitle';
   static const welcomeThemeBody = 'welcomeThemeBody';
@@ -8397,6 +8399,7 @@ abstract final class TrKeys {
 ```dart
 /// 英语文案。
 const enUsTranslations = <String, String>{
+  'componentStyles': 'Component styles',
   'next': 'Next',
   'welcomeThemeTitle': 'Make it yours',
   'welcomeThemeBody': 'Switch theme and language from Home.',
@@ -8433,6 +8436,7 @@ const enUsTranslations = <String, String>{
 ```dart
 /// 简体中文文案。
 const zhCnTranslations = <String, String>{
+  'componentStyles': '组件样式',
   'next': '下一页',
   'welcomeThemeTitle': '选择你的外观',
   'welcomeThemeBody': '在首页切换主题和语言。',
@@ -8469,6 +8473,7 @@ const zhCnTranslations = <String, String>{
 ```dart
 /// 繁体中文文案。
 const zhTwTranslations = <String, String>{
+  'componentStyles': '元件樣式',
   'next': '下一頁',
   'welcomeThemeTitle': '選擇你的外觀',
   'welcomeThemeBody': '在首頁切換主題和語言。',
@@ -8556,6 +8561,8 @@ abstract final class AppRoutes {
   static const welcome = '/welcome';
   static const login = '/login';
   static const home = '/home';
+  // 独立调试页，返回时保留 Home。
+  static const componentStyles = '/component-styles';
 }
 ```
 
@@ -8615,6 +8622,10 @@ class AppRouter {
       GoRoute(path: AppRoutes.welcome, builder: (_, _) => const WelcomePage()),
       GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginPage()),
       GoRoute(path: AppRoutes.home, builder: (_, _) => const HomePage()),
+      GoRoute(
+        path: AppRoutes.componentStyles,
+        builder: (_, _) => const ComponentStylesPage(),
+      ),
     ],
   );
 }
@@ -8632,6 +8643,10 @@ export 'routes.dart';
 
 使用 [`../assets/lib/common/widgets/`](../assets/lib/common/widgets/) 全量源码，递归复制或合并，包含 `form/` 和各级入口。旧版 `page_scaffold.dart`、`primary_button.dart`、`app_form_field.dart` 不再生成，对应类型已位于 `scaffold.dart`、`button.dart`、`input.dart`。
 
+### `lib/pages/component_styles/**`
+
+使用 [`../assets/lib/pages/component_styles/`](../assets/lib/pages/component_styles/) 完整源码，包含页面和模块入口。依赖本模板的 `TrKeys.componentStyles`、`AppRoutes.componentStyles` 和 `showThemeModeSheet`，Home 右上角以 `context.push` 打开；这些路由、三语键及公共组件导出必须一起落地。纯演示状态使用页面内 State，并在 dispose 释放控制器，不依赖业务 API。
+
 ### `docs/组件说明.html`
 
 将 [`../assets/docs/组件说明.html`](../assets/docs/组件说明.html) 写入目标项目同名路径，替换 `{{package_name}}`。浏览器标题与页面主标题均为 `DucafeUI`，保留全部离线样式与交互。
@@ -8645,7 +8660,8 @@ export 'routes.dart';
 ### `lib/common/components/index.dart`
 
 ```dart
-// 带业务语义的共享组件入口。脚手架暂无实现。
+// Home 与组件目录共享的主题菜单。
+export 'theme_mode_sheet.dart';
 ```
 
 ### `lib/common/utils/index.dart`
@@ -9095,14 +9111,14 @@ class HomeController extends GetxController {
 ### `lib/pages/home/home_page.dart`
 
 ```dart
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../common/index.dart';
 import 'home_controller.dart';
 
-/// 单页首页：右上角主题、语言按钮分别打开底部菜单，不含业务 Tab 壳。
+/// 单页首页：右上角进入组件目录，主题、语言按钮打开底部菜单，不含业务 Tab 壳。
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -9121,40 +9137,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     Get.delete<HomeController>();
     super.dispose();
-  }
-
-  /// 菜单通过自己的 Navigator 返回选择，关闭后再更新应用主题。
-  Future<void> _chooseTheme() async {
-    final theme = AdaptiveTheme.of(context);
-    final selected = await showModalBottomSheet<AdaptiveThemeMode>(
-      context: context,
-      builder: (sheetContext) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (final option in [
-              (AdaptiveThemeMode.light, TrKeys.themeLight.tr),
-              (AdaptiveThemeMode.dark, TrKeys.themeDark.tr),
-              (AdaptiveThemeMode.system, TrKeys.themeSystem.tr),
-            ])
-              ListTile(
-                title: Text(option.$2),
-                selected: theme.mode == option.$1,
-                onTap: () => Navigator.of(sheetContext).pop(option.$1),
-              ),
-          ],
-        ),
-      ),
-    );
-    if (!mounted || selected == null) return;
-    switch (selected) {
-      case AdaptiveThemeMode.light:
-        theme.setLight();
-      case AdaptiveThemeMode.dark:
-        theme.setDark();
-      case AdaptiveThemeMode.system:
-        theme.setSystem();
-    }
   }
 
   /// 使用 LocaleService 持久化语言，Get.updateLocale 负责刷新翻译。
@@ -9198,10 +9180,16 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         title: Text(TrKeys.homeTitle.tr),
         actions: [
+          // 通过 go_router 打开组件目录，保留 Home 的路由与控制器状态。
+          GlassIconButton(
+            semanticLabel: TrKeys.componentStyles.tr,
+            icon: Icons.widgets_outlined,
+            onPressed: () => context.push(AppRoutes.componentStyles),
+          ),
           IconButton(
             tooltip: TrKeys.switchTheme.tr,
             icon: const Icon(Icons.brightness_6_outlined),
-            onPressed: _chooseTheme,
+            onPressed: () => showThemeModeSheet(context),
           ),
           IconButton(
             tooltip: TrKeys.switchLanguage.tr,
@@ -9241,6 +9229,7 @@ export 'home_page.dart';
 
 ```dart
 // 页面总入口：只导出各模块页面与控制器。
+export 'component_styles/index.dart';
 export 'home/index.dart';
 export 'login/index.dart';
 export 'splash/index.dart';
@@ -9478,7 +9467,7 @@ void main() {
 6. 页面 Controller `initState` put、`dispose` delete；`update` 带 id；禁止 GetX 路由 API。
 7. `dart run build_runner build --delete-conflicting-outputs` 能生成 Freezed 文件。
 8. `flutter analyze` 与 `flutter test` 可跑，或写明阻塞。
-9. Home 为单页，右上角两个按钮分别用 `showModalBottomSheet` 切主题（浅色 / 深色 / 跟随系统）和语言（en / zh-CN / zh-TW），以 `Navigator.of(sheetContext).pop` 关闭，禁止 `Get.back`；不生成 `StatefulShellRoute` 或 Tab 壳。
+9. Home 为单页，右上角组件按钮打开 ComponentStylesPage，其余两个按钮分别用 `showModalBottomSheet` 切主题（浅色 / 深色 / 跟随系统）和语言（en / zh-CN / zh-TW），以 `Navigator.of(sheetContext).pop` 关闭，禁止 `Get.back`；不生成 `StatefulShellRoute` 或 Tab 壳。
 
 ### `lib/common/style/app_glass.dart`
 
@@ -9560,5 +9549,121 @@ abstract final class AppSpacing {
   static const double lg = 24;
   static const double xl = 32;
   static const double xxl = 40;
+}
+```
+
+### `lib/common/components/theme_mode_sheet.dart`
+
+```dart
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../i18n/index.dart';
+import '../style/index.dart';
+import '../widgets/index.dart';
+
+/// 文件作用：
+/// - 主题模式底部选择（亮 / 暗 / 系统）
+
+/// 主题模式展示文案。
+String themeModeLabel(AdaptiveThemeMode mode) {
+  return switch (mode) {
+    AdaptiveThemeMode.light => TrKeys.themeLight.tr,
+    AdaptiveThemeMode.dark => TrKeys.themeDark.tr,
+    AdaptiveThemeMode.system => TrKeys.themeSystem.tr,
+  };
+}
+
+/// 弹出主题切换 sheet，选中后立刻 `setThemeMode` 并关闭。
+Future<void> showThemeModeSheet(BuildContext context) {
+  final current = AdaptiveTheme.of(context).mode;
+  return AppBottomSheet.show<void>(
+    context: context,
+    isScrollControlled: false,
+    builder: (context) => AppBottomSheet(
+      title: TrKeys.switchTheme.tr,
+      body: SettingsGroup(
+        children: [
+          for (final mode in AdaptiveThemeMode.values)
+            SettingsTile(
+              label: themeModeLabel(mode),
+              trailing: mode == current
+                  ? Icon(Icons.check_rounded, color: context.appPrimary)
+                  : null,
+              onTap: () {
+                AdaptiveTheme.of(context).setThemeMode(mode);
+                Navigator.of(context).pop();
+              },
+            ),
+        ],
+      ),
+    ),
+  );
+}
+```
+
+### `test/component_styles_navigation_test.dart`
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
+import 'package:{{package_name}}/common/index.dart';
+import 'package:{{package_name}}/global.dart';
+import 'package:{{package_name}}/main.dart';
+import 'package:{{package_name}}/pages/index.dart';
+
+/// 使用模板真实路由和本地会话，验证 Home 入口、主题菜单与返回。
+void main() {
+  testWidgets('Home 右上角进入组件样式并返回', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final original = SharedPreferencesAsyncPlatform.instance;
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = original);
+    await tester.runAsync(() async {
+      await Global.init();
+      await Get.find<AppLaunchService>().markWelcomeSeen();
+      await Get.find<SessionService>().establish(
+        userId: 'demo',
+        accessToken: 'demo',
+        refreshToken: 'demo',
+      );
+    });
+    await tester.pumpWidget(const App());
+    await tester.pumpAndSettle();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+    expect(find.byType(HomePage), findsOneWidget);
+    await tester.tap(find.byTooltip(TrKeys.componentStyles.tr));
+    await tester.pumpAndSettle();
+    expect(find.byType(ComponentStylesPage), findsOneWidget);
+    expect(
+      GoRouterState.of(
+        tester.element(find.byType(ComponentStylesPage)),
+      ).uri.path,
+      AppRoutes.componentStyles,
+    );
+    await tester.tap(find.byTooltip('切换主题'));
+    await tester.pumpAndSettle();
+    expect(find.byType(AppBottomSheet), findsOneWidget);
+    await tester.tap(find.text(TrKeys.themeDark.tr));
+    await tester.pumpAndSettle();
+    expect(
+      Theme.of(tester.element(find.byType(ComponentStylesPage))).brightness,
+      Brightness.dark,
+    );
+    await tester.tap(find.byTooltip('返回'));
+    await tester.pumpAndSettle();
+    expect(find.byType(HomePage), findsOneWidget);
+    expect(find.byType(ComponentStylesPage), findsNothing);
+    await tester.pumpWidget(const SizedBox());
+    Get.reset();
+  });
 }
 ```

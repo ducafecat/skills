@@ -52,39 +52,48 @@ class SegmentedTabs extends StatelessWidget {
                   child: Semantics(
                     selected: i == selectedIndex,
                     button: true,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () => onChanged(i),
-                        borderRadius: BorderRadius.circular(AppRadius.button),
-                        child: Padding(
-                          // 上下透明区域只扩展点击范围，不增加可见控件体积。
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Center(
-                            child: AnimatedContainer(
-                              width: double.infinity,
-                              height: selectedHeight,
-                              duration: const Duration(milliseconds: 180),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: i == selectedIndex
-                                    ? context.appCard
-                                    : Colors.transparent,
+                    child: GestureDetector(
+                      // 透明区域只扩展触控范围，不能在这里绘制水波纹。
+                      behavior: HitTestBehavior.opaque,
+                      excludeFromSemantics: true,
+                      onTap: () => onChanged(i),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Center(
+                          child: AnimatedContainer(
+                            width: double.infinity,
+                            height: selectedHeight,
+                            duration: const Duration(milliseconds: 180),
+                            decoration: BoxDecoration(
+                              color: i == selectedIndex
+                                  ? context.appCard
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(AppRadius.lg),
+                              border: i == selectedIndex
+                                  ? Border.all(color: context.appBorder)
+                                  : null,
+                            ),
+                            // 反馈层放在选项背景上方，尺寸和圆角由可见选项限定。
+                            child: Material(
+                              type: MaterialType.transparency,
+                              borderRadius: BorderRadius.circular(AppRadius.lg),
+                              clipBehavior: Clip.antiAlias,
+                              child: InkWell(
+                                onTap: () => onChanged(i),
                                 borderRadius: BorderRadius.circular(
                                   AppRadius.lg,
                                 ),
-                                border: i == selectedIndex
-                                    ? Border.all(color: context.appBorder)
-                                    : null,
-                              ),
-                              child: Text(
-                                labels[i],
-                                textAlign: TextAlign.center,
-                                style: AppTextStyles.secondary.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: i == selectedIndex
-                                      ? context.appForeground
-                                      : context.appMutedFg,
+                                child: Center(
+                                  child: Text(
+                                    labels[i],
+                                    textAlign: TextAlign.center,
+                                    style: AppTextStyles.secondary.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: i == selectedIndex
+                                          ? context.appForeground
+                                          : context.appMutedFg,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

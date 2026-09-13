@@ -360,8 +360,12 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 ? BorderSide(color: widget.borderColor ?? context.appBorder)
                 : BorderSide.none,
           ),
+          // 与 AppButton 一致：按钮使用紧凑行高并均分额外行距，
+          // 避免正文的比例行距让字形看起来偏下；尺寸档位只缩放字号。
           textStyle: AppTextStyles.body.copyWith(
             fontSize: AppTextStyles.body.fontSize! * factor,
+            height: 1.2,
+            leadingDistribution: TextLeadingDistribution.even,
           ),
         ),
         child: Row(
@@ -535,41 +539,57 @@ class GlassIconButton extends StatelessWidget {
   final double size;
   final double iconSize;
   @override
-  Widget build(BuildContext context) => IconButton(
-    tooltip: semanticLabel,
-    onPressed: onPressed,
-    style: IconButton.styleFrom(
-      minimumSize: const Size(48, 48),
-      padding: EdgeInsets.zero,
-    ),
-    // 图片上的返回按钮固定深底，亮色主题也保持可见。
-    icon: onMedia
-        ? Container(
-            width: size,
-            height: size,
-            decoration: const BoxDecoration(
-              color: AppMediaColors.scrim,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, size: iconSize, color: AppMediaColors.foreground),
-          )
-        : GlassSurface(
-            width: size,
-            height: size,
-            borderRadius: BorderRadius.circular(size / 2),
-            blurSigma: AppGlass.blurLight,
-            color: AppGlass.iconFillOf(context),
-            child: Center(
-              child: Icon(
-                icon,
-                size: iconSize,
-                color: onPressed == null
-                    ? context.appMutedFg
-                    : color ?? context.appForeground,
-              ),
-            ),
-          ),
-  );
+  Widget build(BuildContext context) {
+    final button = IconButton(
+      tooltip: semanticLabel,
+      onPressed: onPressed,
+      style: IconButton.styleFrom(
+        minimumSize: Size.square(size),
+        padding: EdgeInsets.zero,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: VisualDensity.standard,
+        shape: const CircleBorder(),
+      ),
+      icon: Icon(
+        icon,
+        size: iconSize,
+        color: onMedia
+            ? AppMediaColors.foreground
+            : onPressed == null
+            ? context.appMutedFg
+            : color ?? context.appForeground,
+      ),
+    );
+    return GestureDetector(
+      // 外围只负责命中，原生按钮在可见圆形内提供焦点、语义和水波纹。
+      behavior: HitTestBehavior.opaque,
+      excludeFromSemantics: true,
+      onTap: onPressed,
+      child: SizedBox.square(
+        dimension: math.max(48, size),
+        child: Center(
+          child: onMedia
+              ? SizedBox.square(
+                  dimension: size,
+                  child: Material(
+                    color: AppMediaColors.scrim,
+                    shape: const CircleBorder(),
+                    clipBehavior: Clip.antiAlias,
+                    child: button,
+                  ),
+                )
+              : GlassSurface(
+                  width: size,
+                  height: size,
+                  borderRadius: BorderRadius.circular(size / 2),
+                  blurSigma: AppGlass.blurLight,
+                  color: AppGlass.iconFillOf(context),
+                  child: button,
+                ),
+        ),
+      ),
+    );
+  }
 }
 
 /// 顶部文字动作：视觉高32，外层触控区至少48，不复用正文按钮的42/48视觉高度。
@@ -612,47 +632,55 @@ class TopBarAction extends StatelessWidget {
       child: IntrinsicWidth(
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: touchExtent),
-          child: SizedBox(
-            height: scaledVisualHeight + 16,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: active ? onPressed : null,
-                borderRadius: BorderRadius.circular(AppRadius.button),
-                child: Padding(
-                  // 透明留白属于触控区，不绘制成橙色按钮。
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Container(
-                    height: scaledVisualHeight,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: background,
-                      borderRadius: BorderRadius.circular(AppRadius.button),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Opacity(
-                          opacity: loading ? 0 : 1,
-                          child: Text(
-                            label,
-                            style: AppTextStyles.secondary.copyWith(
-                              color: foreground,
-                              fontWeight: FontWeight.w600,
+          child: GestureDetector(
+            // 透明留白仅扩大触控范围，水波纹由内层可见按钮承载。
+            behavior: HitTestBehavior.opaque,
+            excludeFromSemantics: true,
+            onTap: active ? onPressed : null,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Container(
+                height: scaledVisualHeight,
+                decoration: BoxDecoration(
+                  color: background,
+                  borderRadius: BorderRadius.circular(AppRadius.button),
+                ),
+                // 背景先绘制，独立 Material 再绘制反馈并裁切到按钮圆角。
+                child: Material(
+                  type: MaterialType.transparency,
+                  borderRadius: BorderRadius.circular(AppRadius.button),
+                  clipBehavior: Clip.antiAlias,
+                  child: InkWell(
+                    onTap: active ? onPressed : null,
+                    borderRadius: BorderRadius.circular(AppRadius.button),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Center(
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Opacity(
+                              opacity: loading ? 0 : 1,
+                              child: Text(
+                                label,
+                                style: AppTextStyles.secondary.copyWith(
+                                  color: foreground,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
-                          ),
+                            if (loading)
+                              SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: foreground,
+                                ),
+                              ),
+                          ],
                         ),
-                        if (loading)
-                          SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: foreground,
-                            ),
-                          ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

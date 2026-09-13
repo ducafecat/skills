@@ -10,7 +10,7 @@
 
 本文说明本 skill 生成的 GetX 脚手架：为什么这样分层、文件怎么协作、新项目从哪里加功能。
 
-它不是完整业务 App。范围只有启动、四页流、会话、网络骨架、主题和三语文案。不包含 Firebase、IAP、底部 Tab、具体后端业务。
+它不是完整业务 App。范围包括启动、四页流、独立组件调试页、会话、网络骨架、主题和三语文案。不包含 Firebase、IAP、底部 Tab、具体后端业务。
 
 ## 2. 技术栈
 
@@ -42,7 +42,7 @@ lib/
 ├── common/                共享能力
 │   ├── api/               按资源拆的后端客户端（脚手架仅 AuthApi）
 │   ├── cache/             图片代理缓存
-│   ├── components/        带业务语义的共享组件（脚手架空入口）
+│   ├── components/        共享组合（含 Home 与组件目录共用的主题菜单）
 │   ├── extension/         Dart / Flutter 扩展与 ScreenUtil
 │   ├── i18n/
 │   ├── models/            Freezed 模型
@@ -55,7 +55,7 @@ lib/
 │   ├── widgets/           无业务语义的标准组件
 │   └── index.dart
 └── pages/
-    ├── splash / welcome / login / home
+    ├── splash / welcome / login / home / component_styles
     └── index.dart
 ```
 
@@ -115,7 +115,7 @@ redirect：
 
 Splash 展示应用名，首帧后固定停留 0.5 秒再 `context.go`，页面销毁时取消计时器。Welcome 使用三页 `PageView`，最后一页点「开始」成功写入 `AppLaunchService` 再进 login。Login 从 `AppConfig.demoEmail` / `demoPassword` 预填 `ducafecat@gmail.com` / `123456`，成功走 `SessionService.establish`，revision 变化后 redirect 进 Home。
 
-Home 是单页，不是 `StatefulShellRoute`。右上角两个按钮分别用 `showModalBottomSheet` 切主题（浅色 / 深色 / 跟随系统）和语言（en / zh-CN / zh-TW）。主题交给 AdaptiveTheme，语言交给 LocaleService 持久化；菜单通过 `Navigator.of(sheetContext).pop` 关闭，禁止 `Get.back`。Tab 壳是业务，不进本脚手架。
+Home 是单页，不是 `StatefulShellRoute`。右上角新增组件样式入口，另外两个按钮分别用 `showModalBottomSheet` 切主题（浅色 / 深色 / 跟随系统）和语言（en / zh-CN / zh-TW）。主题交给 AdaptiveTheme，语言交给 LocaleService 持久化；菜单通过 `Navigator.of(sheetContext).pop` 关闭，禁止 `Get.back`。Tab 壳是业务，不进本脚手架。
 
 ## 7. GetX 页面状态
 
