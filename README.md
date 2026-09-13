@@ -1,122 +1,132 @@
 <p align="center">
-  <img src="docs/banner.png" alt="ducafecat/skills" />
+  <img src="docs/banner.png" alt="猫哥 ducafecat — Flutter Agent Skills for Codex, Claude Code &amp; Cursor" />
 </p>
 
-# skills
+[English](./README.md) | [简体中文](./README.zh-CN.md) | [繁體中文](./README.zh-TW.md)
 
-面向 Flutter 开发与资源处理工作流的可复用 Codex Agent Skills 集合。
+# Flutter Agent Skills for Codex, Claude Code & Cursor
 
-官网：[https://ducafecat.com](https://ducafecat.com)
+Reusable Flutter Agent Skills by **猫哥 (ducafecat)** for AI coding workflows: Riverpod and GetX scaffolding, asset automation, and deep code review.
 
-## 可用技能
+Bootstrap existing Flutter apps with go_router, Dio, Freezed, storage, and themes, or automate image assets and review code changes with repository-aware instructions.
 
-| 技能                                                                   | 说明                                                                                                                                   | 文档                                                 |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md)     | 为已有 Flutter 项目初始化 Riverpod、go_router、Dio、Freezed/JSON、SharedPreferences、Logger、AdaptiveTheme，以及可运行的基础页面流程。 | [README](./skills/flutter-riverpod-init/README.md)   |
-| [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md)             | 为已有 Flutter 项目初始化 GetX、go_router、Dio、Freezed/JSON、存储、主题与多语言，包含基础页面流程、DucafeUI 组件库及离线文档。         | [README](./skills/flutter-getx-init/README.md)       |
-| [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 的源图，用纯 Dart 生成 Flutter 1x、2x 图片资源，并更新资源索引。                                            | [README](./skills/flutter-assets-compress/README.md) |
-| [`deep-code-review`](./skills/deep-code-review/SKILL.md)               | 深度审查 branch、PR、固定点或工作区代码变更，结合仓库标准与 AI 审查规则发现可验证的问题。                                             | [技能入口](./skills/deep-code-review/SKILL.md)       |
+Website: [ducafecat.com](https://ducafecat.com)
 
-## 安装
+## Quick Start
 
-在项目目录中运行：
+Run in your project directory:
 
 ```bash
 npx skills@latest add ducafecat/skills
 ```
 
-安装器会引导你选择需要的技能，以及要安装到 Codex、Claude Code、Cursor 等哪些编码 Agent。技能会作为普通文件写入项目，因此可以直接查看和修改。
+Select the skills and target AI coding agents in the installer. Skills are installed as ordinary files that you can inspect and customize.
 
-需要获取本仓库的最新版本时运行：
+To update installed skills:
 
 ```bash
 npx skills update
 ```
 
-安装完成后，可以通过技能名称显式调用，例如 `$flutter-riverpod-init`、`$flutter-getx-init`、`$flutter-assets-compress` 或 `$deep-code-review`；支持自动发现技能的 Agent 也会在任务匹配时主动使用它们。
+The initialization skills require an existing Flutter project with `pubspec.yaml` and `lib/main.dart`. The image asset skill requires source images in `assets/images/3.0x/`. Running project commands requires the Flutter or Dart SDK; dependency installation may require network access.
 
-## 使用场景
+## Why Flutter Agent Skills?
 
-### Flutter Riverpod 项目初始化
+- **Repeatable app setup:** apply documented Riverpod or GetX architecture, file templates, and starter page flows.
+- **Automated asset workflows:** generate density variants and maintain an `AppImages` index with pure Dart.
+- **Code review grounded in your repository:** inspect changes against repository standards and review rules.
+- **Editable workflows:** each skill keeps its instructions, references, and supporting files in the repository.
 
-使用 [`flutter-riverpod-init`](./skills/flutter-riverpod-init/README.md) 快速为已有 Flutter 项目加入常见应用基础设施，包括路由、网络、存储、主题、启动页、登录页和首页流程。
+## Available Flutter Skills
 
-更多细节：
+| Skill | What it does | Documentation |
+| --- | --- | --- |
+| [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md) | Adds Riverpod, go_router, Dio, Freezed/JSON, SharedPreferences, Logger, AdaptiveTheme, and starter pages to an existing Flutter project. | [Guide](./skills/flutter-riverpod-init/README.md) |
+| [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md) | Adds GetX app infrastructure, routing, networking, storage, themes, English/Simplified Chinese/Traditional Chinese translations, and DucafeUI components with offline docs. | [Guide](./skills/flutter-getx-init/README.md) |
+| [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | Generates Flutter 1x and 2x image assets from `assets/images/3.0x/`, compresses supported outputs, and updates the `AppImages` index using pure Dart. | [Guide](./skills/flutter-assets-compress/README.md) |
+| [`deep-code-review`](./skills/deep-code-review/SKILL.md) | Reviews branch, PR, fixed-base, or workspace code changes using repository standards and review rules; automatically selects review depth by change size and risk. | [Skill instructions](./skills/deep-code-review/SKILL.md) |
 
-- [技能入口](./skills/flutter-riverpod-init/SKILL.md)
-- [架构说明](./skills/flutter-riverpod-init/references/architecture.md)
-- [文件模板](./skills/flutter-riverpod-init/references/file-templates.md)
+## Supported AI Coding Agents
 
-### Flutter GetX 项目初始化
+Install with the skills CLI for **OpenAI Codex**, **Claude Code**, or **Cursor**, selecting the target agents offered by the installer. Invocation and automatic discovery depend on the agent you use.
 
-使用 [`flutter-getx-init`](./skills/flutter-getx-init/README.md) 快速为已有 Flutter 项目加入 GetX 状态管理、go_router 路由、网络、存储、主题和多语言，生成启动页、欢迎页、登录页与首页流程，并提供 DucafeUI 通用组件库及离线组件说明和样式规范。
+The examples below use Codex-style `$skill-name` invocation. In other agents, use their skill selection mechanism or ask explicitly to use the skill by name. Individual workflows may require agent capabilities such as command execution or sub-agents; check the corresponding `SKILL.md` before use.
 
-更多细节：
+## Flutter Tech Stack
 
-- [技能入口](./skills/flutter-getx-init/SKILL.md)
-- [架构说明](./skills/flutter-getx-init/references/architecture.md)
-- [文件模板](./skills/flutter-getx-init/references/file-templates.md)
+| Area | Libraries and tools |
+| --- | --- |
+| Language and framework | Dart, Flutter |
+| State management | Riverpod or GetX |
+| Routing and networking | go_router, Dio |
+| Models and code generation | Freezed, JSON serialization, build_runner |
+| Storage, logging, and themes | SharedPreferences, Logger, AdaptiveTheme |
+| GetX UI and localization | DucafeUI, GetX translations (en / zh-CN / zh-TW) |
+| Image asset automation | Pure Dart image processing, `AppImages` index |
 
-### Flutter 图片资源生成
+## Usage Examples
 
-使用 [`flutter-assets-compress`](./skills/flutter-assets-compress/README.md) 从 3.0x 图片资源生成 2.0x 与 1x 版本，并维护 `AppImages` 资源索引。
+### Flutter Riverpod app scaffolding
 
-更多细节：
+```text
+$flutter-riverpod-init
+```
 
-- [技能入口](./skills/flutter-assets-compress/SKILL.md)
+See the [architecture](./skills/flutter-riverpod-init/references/architecture.md) and [file templates](./skills/flutter-riverpod-init/references/file-templates.md).
 
-### 深度代码审核
+### Flutter GetX app scaffolding
 
-使用 [`deep-code-review`](./skills/deep-code-review/SKILL.md) 审查 branch、PR、指定固定点或当前工作区中的代码变更。技能会根据变更规模与风险选择轻审或全审，并从仓库规范和 AI 审查规则两个维度核查问题。
+```text
+$flutter-getx-init
+```
 
-更多细节：
+See the [architecture](./skills/flutter-getx-init/references/architecture.md) and [file templates](./skills/flutter-getx-init/references/file-templates.md). The workflow includes splash, welcome, login, and home pages, plus offline component and style documentation.
 
-- [技能入口](./skills/deep-code-review/SKILL.md)
-- [审核标准](./skills/deep-code-review/references/standards.md)
+### Flutter image asset generation
 
-## 仓库结构
+```text
+$flutter-assets-compress
+```
+
+See the [asset generation guide](./skills/flutter-assets-compress/README.md).
+
+### Deep code review
+
+```text
+$deep-code-review
+```
+
+You can also specify a branch or fixed base such as `main`. See the [review standards](./skills/deep-code-review/references/standards.md). This skill excludes Markdown and documentation paths from review.
+
+## How Agent Skills Work
+
+Each directory under [`skills/`](./skills/) contains a `SKILL.md` with its purpose, trigger conditions, and workflow. Skills may also include references, templates, assets, or helper scripts. The coding agent reads these instructions and applies them to your project; agents with automatic discovery can select a matching skill from the task context.
+
+Read the selected skill's instructions before use. Workflows may edit project files and run local commands such as `flutter pub add`, `dart run`, `flutter analyze`, `flutter test`, or `build_runner`.
+
+## Repository Structure
 
 ```text
 .
 ├── skills/
-│   ├── flutter-riverpod-init/
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   └── references/
-│   ├── flutter-getx-init/
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── assets/
-│   │   └── references/
-│   ├── flutter-assets-compress/
-│   │   ├── SKILL.md
-│   │   └── README.md
-│   └── deep-code-review/
-│       ├── SKILL.md
-│       ├── agents/
-│       ├── references/
-│       └── scripts/
+│   ├── flutter-riverpod-init/   # SKILL.md, README.md, references/
+│   ├── flutter-getx-init/       # SKILL.md, README.md, assets/, references/
+│   ├── flutter-assets-compress/ # SKILL.md, README.md
+│   └── deep-code-review/        # SKILL.md, agents/, references/, scripts/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
-└── README.md
+├── README.md                   # English
+├── README.zh-CN.md              # Simplified Chinese
+└── README.zh-TW.md              # Traditional Chinese
 ```
 
-## 贡献
+## Contributing
 
-新增或修改技能时，请参考 [CONTRIBUTING.md](./CONTRIBUTING.md)。发布前建议检查：
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for skill structure and validation requirements. Before publishing skill changes, validate front matter, match directory names to skill names, check reference links, and synchronize skill versions with [CHANGELOG.md](./CHANGELOG.md).
 
-- `SKILL.md` front matter 是否能正确解析。
-- 技能目录名与 `name` 是否一致。
-- 参考文档链接是否有效。
-- 版本号与 [CHANGELOG.md](./CHANGELOG.md) 是否同步更新。
+When updating these READMEs, keep the English, Simplified Chinese, and Traditional Chinese versions aligned. Linked skill documentation remains in its original language.
 
-## 安全说明
+## License
 
-使用前建议先阅读对应技能的 `SKILL.md` 与 README，可以从 [skills 目录](./skills/) 进入。当前技能不包含凭据，也不会主动执行部署、发布或删除用户代码等破坏性操作。
-
-部分流程会执行项目本地命令，例如 `flutter pub add`、`dart run`、`flutter analyze`、`flutter test` 或 `build_runner`。安装依赖时可能需要网络访问。
-
-## 许可证
-
-本仓库基于 [MIT License](./LICENSE) 开源。
+Released under the [MIT License](./LICENSE).
