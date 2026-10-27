@@ -1,0 +1,134 @@
+{
+  "project": "Nebula Studio（示例）",
+  "round": 1,
+  "brief": "虚构开发者工具品牌；极简几何 · 低饱和科技蓝 · 抽象软件工作流",
+  "candidates": [
+    {
+      "id": "A",
+      "title": "折面核心",
+      "file": "01.svg",
+      "concept": "六边形的错位切割形成聚合核心，表达模块化技术底座。",
+      "geometry": "六边形 · 负空间",
+      "palette": [
+        "#4169A8",
+        "#263B53"
+      ],
+      "sourceType": "original",
+      "sourceUrl": "",
+      "license": "original",
+      "modifications": "原创几何路径构成",
+      "researchIds": [
+        "icon-01"
+      ],
+      "designReferenceIds": [
+        "brand-01"
+      ]
+    },
+    {
+      "id": "B",
+      "title": "数据汇流",
+      "file": "02.svg",
+      "concept": "三个方向的连接在中心汇合，象征代码与数据协作。",
+      "geometry": "流线 · 圆角节点",
+      "palette": [
+        "#4169A8",
+        "#A8B0BA"
+      ],
+      "sourceType": "original",
+      "sourceUrl": "",
+      "license": "original",
+      "modifications": "原创几何路径构成",
+      "researchIds": [
+        "icon-01"
+      ],
+      "designReferenceIds": [
+        "brand-01"
+      ]
+    },
+    {
+      "id": "C",
+      "title": "旋转栈层",
+      "file": "03.svg",
+      "concept": "两层错位的菱形建立稳定的技术秩序，保持轻盈的动势。",
+      "geometry": "菱形 · 层叠",
+      "palette": [
+        "#263B53",
+        "#6787AE"
+      ],
+      "sourceType": "original",
+      "sourceUrl": "",
+      "license": "original",
+      "modifications": "原创几何路径构成",
+      "researchIds": [
+        "icon-01"
+      ],
+      "designReferenceIds": [
+        "brand-01"
+      ]
+    },
+    {
+      "id": "D",
+      "title": "双轨系统",
+      "file": "04.svg",
+      "concept": "连续轨道与切口表达可预测的工具链和稳定工作流。",
+      "geometry": "平行路径 · 切割",
+      "palette": [
+        "#4169A8",
+        "#263B53"
+      ],
+      "sourceType": "original",
+      "sourceUrl": "",
+      "license": "original",
+      "modifications": "原创几何路径构成",
+      "researchIds": [
+        "icon-01"
+      ],
+      "designReferenceIds": [
+        "brand-01"
+      ]
+    },
+    {
+      "id": "E",
+      "title": "矩阵窗口",
+      "file": "05.svg",
+      "concept": "四个精简模块形成负空间中心，像可以自由组织的工作台。",
+      "geometry": "模块矩阵 · 负空间",
+      "palette": [
+        "#4169A8",
+        "#263B53"
+      ],
+      "sourceType": "original",
+      "sourceUrl": "",
+      "license": "original",
+      "modifications": "原创几何路径构成",
+      "researchIds": [
+        "icon-01"
+      ],
+      "designReferenceIds": [
+        "brand-01"
+      ]
+    },
+    {
+      "id": "F",
+      "title": "向量引擎",
+      "file": "06.svg",
+      "concept": "锐利而克制的向前动势，代表效率与计算能力。",
+      "geometry": "方向向量 · 几何切口",
+      "palette": [
+        "#4169A8",
+        "#A8B0BA"
+      ],
+      "sourceType": "original",
+      "sourceUrl": "",
+      "license": "original",
+      "modifications": "原创几何路径构成",
+      "researchIds": [
+        "icon-01"
+      ],
+      "designReferenceIds": [
+        "brand-01"
+      ]
+    }
+  ],
+  "exampleNote": "仅为字段格式演示，researchIds 和 designReferenceIds 需替换为本轮真实核验的 ID；不代表示例素材通过了授权审核。"
+}

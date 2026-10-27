@@ -44,6 +44,8 @@ The initialization skills require an existing Flutter project with `pubspec.yaml
 | [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md) | Adds Riverpod, go_router, Dio, Freezed/JSON, SharedPreferences, Logger, AdaptiveTheme, and starter pages to an existing Flutter project. | [Guide](./skills/flutter-riverpod-init/README.md) |
 | [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md) | Adds GetX app infrastructure, routing, networking, storage, themes, English/Simplified Chinese/Traditional Chinese translations, and DucafeUI components with offline docs. | [Guide](./skills/flutter-getx-init/README.md) |
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | Generates Flutter 1x and 2x image assets from `assets/images/3.0x/`, compresses supported outputs, and updates the `AppImages` index using pure Dart. | [Guide](./skills/flutter-assets-compress/README.md) |
+| [`flutter-rename`](./skills/flutter-rename/SKILL.md) | Sets Android/iOS Bundle ID or App Name in the current Flutter project from a single value, using the `rename` CLI. | [Guide](./skills/flutter-rename/README.md) |
+| [`design-logo`](./skills/design-logo/SKILL.md) | Designs brand logos for websites and apps via Q&A, real logo case research, six original SVGs, interactive HTML gallery selection, and export. | [Guide](./skills/design-logo/README.md) |
 | [`deep-code-review`](./skills/deep-code-review/SKILL.md) | Reviews branch, PR, fixed-base, or workspace code changes using repository standards and review rules; automatically selects review depth by change size and risk. | [Skill instructions](./skills/deep-code-review/SKILL.md) |
 
 ## Supported AI Coding Agents
@@ -90,6 +92,22 @@ $flutter-assets-compress
 
 See the [asset generation guide](./skills/flutter-assets-compress/README.md).
 
+### Flutter rename (Bundle ID / App Name)
+
+```text
+$flutter-rename
+```
+
+See the [rename guide](./skills/flutter-rename/README.md).
+
+### Brand logo design
+
+```text
+$design-logo
+```
+
+See the [logo design guide](./skills/design-logo/README.md).
+
 ### Deep code review
 
 ```text
@@ -112,6 +130,8 @@ Read the selected skill's instructions before use. Workflows may edit project fi
 │   ├── flutter-riverpod-init/   # SKILL.md, README.md, references/
 │   ├── flutter-getx-init/       # SKILL.md, README.md, assets/, references/
 │   ├── flutter-assets-compress/ # SKILL.md, README.md
+│   ├── flutter-rename/          # SKILL.md, README.md
+│   ├── design-logo/             # SKILL.md, README.md, assets/, examples/, references/, scripts/
 │   └── deep-code-review/        # SKILL.md, agents/, references/, scripts/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md

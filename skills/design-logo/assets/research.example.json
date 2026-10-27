@@ -1,0 +1,91 @@
+{
+  "keywords": [
+    "layers",
+    "blocks",
+    "layout",
+    "hierarchy",
+    "components",
+    "stack"
+  ],
+  "librariesReviewed": [
+    {
+      "name": "Tabler Icons",
+      "reviewed": false,
+      "notes": "尚未核查，不得改为 true"
+    },
+    {
+      "name": "Lucide",
+      "reviewed": false,
+      "notes": "尚未核查，不得改为 true"
+    },
+    {
+      "name": "SVG Repo",
+      "reviewed": false,
+      "notes": "尚未核查，不得改为 true"
+    }
+  ],
+  "icons": [
+    {
+      "id": "icon-01",
+      "name": "待搜索真实图标",
+      "library": "Tabler Icons",
+      "sourceUrl": "",
+      "license": "",
+      "licenseUrl": "",
+      "commercialUse": false,
+      "modificationAllowed": false,
+      "licenseCheckedAt": "",
+      "svgFile": "research/svg/icon-01.svg",
+      "whyRelevant": "",
+      "verified": false
+    }
+  ],
+  "rejected": [],
+  "designReferences": [
+    {
+      "id": "brand-01",
+      "title": "待验证：具体品牌案例名称",
+      "site": "Logosystem",
+      "sourceUrl": "",
+      "observedAt": "",
+      "principle": "",
+      "whyRelevant": "",
+      "avoidCopying": "",
+      "verified": false
+    },
+    {
+      "id": "brand-02",
+      "title": "待验证：具体品牌案例名称",
+      "site": "LogoArchive",
+      "sourceUrl": "",
+      "observedAt": "",
+      "principle": "",
+      "whyRelevant": "",
+      "avoidCopying": "",
+      "verified": false
+    },
+    {
+      "id": "brand-03",
+      "title": "待验证：具体品牌案例名称",
+      "site": "Dribbble",
+      "sourceUrl": "",
+      "observedAt": "",
+      "principle": "",
+      "whyRelevant": "",
+      "avoidCopying": "",
+      "verified": false
+    },
+    {
+      "id": "brand-04",
+      "title": "待验证：具体品牌案例名称",
+      "site": "Behance",
+      "sourceUrl": "",
+      "observedAt": "",
+      "principle": "",
+      "whyRelevant": "",
+      "avoidCopying": "",
+      "verified": false
+    }
+  ],
+  "notes": "这是未完成的研究模板，不是已经访问或授权的素材清单；正式模式需要4个已访问的具体案例和12个已核查SVG。"
+}

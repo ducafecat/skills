@@ -1,0 +1,16 @@
+{
+  "name": "Nebula Studio",
+  "description": "帮助开发者管理不同项目、连接数据与自动化工作流",
+  "usage": "无限制自由发挥",
+  "palettePreference": "无限制自由发挥",
+  "symbolPreference": "无限制自由发挥",
+  "mustHave": [],
+  "mustAvoid": [],
+  "round": 1,
+  "rejectedDirections": [],
+  "typographyPreference": "无限制自由发挥",
+  "materialPreference": "无限制自由发挥",
+  "stylePreference": [
+    "无限制自由发挥"
+  ]
+}

@@ -44,6 +44,8 @@ npx skills update
 | [`flutter-riverpod-init`](./skills/flutter-riverpod-init/SKILL.md) | 為現有 Flutter 專案加入 Riverpod、go_router、Dio、Freezed/JSON、SharedPreferences、Logger、AdaptiveTheme 和基本頁面。 | [使用指南](./skills/flutter-riverpod-init/README.md) |
 | [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md) | 加入 GetX 應用程式基礎設施、路由、網路、儲存、佈景主題、英文/簡體/繁體多語系，以及 DucafeUI 元件庫和離線文件。 | [使用指南](./skills/flutter-getx-init/README.md) |
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 根據 `assets/images/3.0x/` 來源圖片，用純 Dart 產生 Flutter 1x、2x 圖片，壓縮支援的輸出格式，並更新 `AppImages` 索引。 | [使用指南](./skills/flutter-assets-compress/README.md) |
+| [`flutter-rename`](./skills/flutter-rename/SKILL.md) | 根據單一參數，在目前 Flutter 專案中設定 Android/iOS Bundle ID 或 App Name，呼叫 `rename` CLI。 | [使用指南](./skills/flutter-rename/README.md) |
+| [`design-logo`](./skills/design-logo/SKILL.md) | 一問一答完成網站與 App 品牌 Logo：真實案例研究、六款原創 SVG、HTML 畫廊選稿與匯出。 | [使用指南](./skills/design-logo/README.md) |
 | [`deep-code-review`](./skills/deep-code-review/SKILL.md) | 結合儲存庫標準與審查規則，審查分支、PR、指定基準或工作區程式碼變更；自動觸發時依規模與風險選擇審查深度。 | [技能入口](./skills/deep-code-review/SKILL.md) |
 
 ## 支援的 AI 程式開發工具
@@ -90,6 +92,22 @@ $flutter-assets-compress
 
 參考[資源產生指南](./skills/flutter-assets-compress/README.md)。
 
+### Flutter 改名（Bundle ID / App Name）
+
+```text
+$flutter-rename
+```
+
+參考[改名指南](./skills/flutter-rename/README.md)。
+
+### 品牌 Logo 設計
+
+```text
+$design-logo
+```
+
+參考[Logo 設計指南](./skills/design-logo/README.md)。
+
 ### 深度程式碼審查
 
 ```text
@@ -112,6 +130,8 @@ $deep-code-review
 │   ├── flutter-riverpod-init/   # SKILL.md、README.md、references/
 │   ├── flutter-getx-init/       # SKILL.md、README.md、assets/、references/
 │   ├── flutter-assets-compress/ # SKILL.md、README.md
+│   ├── flutter-rename/          # SKILL.md、README.md
+│   ├── design-logo/             # SKILL.md、README.md、assets/、examples/、references/、scripts/
 │   └── deep-code-review/        # SKILL.md、agents/、references/、scripts/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
