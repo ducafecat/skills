@@ -45,6 +45,7 @@ npx skills update
 | [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md) | 加入 GetX 应用基础设施、路由、网络、存储、主题、英文/简体/繁体多语言，以及 DucafeUI 组件库和离线文档。 | [使用指南](./skills/flutter-getx-init/README.md) |
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | 基于 `assets/images/3.0x/` 源图，用纯 Dart 生成 Flutter 1x、2x 图片，压缩支持的输出格式，并更新 `AppImages` 索引。 | [使用指南](./skills/flutter-assets-compress/README.md) |
 | [`flutter-rename`](./skills/flutter-rename/SKILL.md) | 根据单个参数，在当前 Flutter 项目中设置 Android/iOS Bundle ID 或 App Name，调用 `rename` CLI。 | [使用指南](./skills/flutter-rename/README.md) |
+| [`flutter-app-icon`](./skills/flutter-app-icon/SKILL.md) | 使用 `assets/icons` 现有资源，配置并执行 `flutter_launcher_icons`，更新 Android、iOS、macOS、Windows、Web 应用图标。 | [技能入口](./skills/flutter-app-icon/SKILL.md) |
 | [`design-logo`](./skills/design-logo/SKILL.md) | 一问一答完成网站与 App 品牌 Logo：真实案例研究、六款原创 SVG、HTML 画廊选稿与导出。 | [使用指南](./skills/design-logo/README.md) |
 | [`deep-code-review`](./skills/deep-code-review/SKILL.md) | 结合仓库标准与审查规则，审查分支、PR、指定基准或工作区代码变更；自动触发时按规模与风险选择审查深度。 | [技能入口](./skills/deep-code-review/SKILL.md) |
 
@@ -100,6 +101,14 @@ $flutter-rename
 
 参考[改名指南](./skills/flutter-rename/README.md)。
 
+### Flutter 应用图标
+
+```text
+$flutter-app-icon
+```
+
+参考[技能入口](./skills/flutter-app-icon/SKILL.md)。
+
 ### 品牌 Logo 设计
 
 ```text
@@ -131,6 +140,7 @@ $deep-code-review
 │   ├── flutter-getx-init/       # SKILL.md、README.md、assets/、references/
 │   ├── flutter-assets-compress/ # SKILL.md、README.md
 │   ├── flutter-rename/          # SKILL.md、README.md
+│   ├── flutter-app-icon/        # SKILL.md
 │   ├── design-logo/             # SKILL.md、README.md、assets/、examples/、references/、scripts/
 │   └── deep-code-review/        # SKILL.md、agents/、references/、scripts/
 ├── CHANGELOG.md

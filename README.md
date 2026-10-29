@@ -45,6 +45,7 @@ The initialization skills require an existing Flutter project with `pubspec.yaml
 | [`flutter-getx-init`](./skills/flutter-getx-init/SKILL.md) | Adds GetX app infrastructure, routing, networking, storage, themes, English/Simplified Chinese/Traditional Chinese translations, and DucafeUI components with offline docs. | [Guide](./skills/flutter-getx-init/README.md) |
 | [`flutter-assets-compress`](./skills/flutter-assets-compress/SKILL.md) | Generates Flutter 1x and 2x image assets from `assets/images/3.0x/`, compresses supported outputs, and updates the `AppImages` index using pure Dart. | [Guide](./skills/flutter-assets-compress/README.md) |
 | [`flutter-rename`](./skills/flutter-rename/SKILL.md) | Sets Android/iOS Bundle ID or App Name in the current Flutter project from a single value, using the `rename` CLI. | [Guide](./skills/flutter-rename/README.md) |
+| [`flutter-app-icon`](./skills/flutter-app-icon/SKILL.md) | Configures and runs `flutter_launcher_icons` from existing `assets/icons` resources to update Android, iOS, macOS, Windows, and Web app icons. | [Skill instructions](./skills/flutter-app-icon/SKILL.md) |
 | [`design-logo`](./skills/design-logo/SKILL.md) | Designs brand logos for websites and apps via Q&A, real logo case research, six original SVGs, interactive HTML gallery selection, and export. | [Guide](./skills/design-logo/README.md) |
 | [`deep-code-review`](./skills/deep-code-review/SKILL.md) | Reviews branch, PR, fixed-base, or workspace code changes using repository standards and review rules; automatically selects review depth by change size and risk. | [Skill instructions](./skills/deep-code-review/SKILL.md) |
 
@@ -100,6 +101,14 @@ $flutter-rename
 
 See the [rename guide](./skills/flutter-rename/README.md).
 
+### Flutter app icon
+
+```text
+$flutter-app-icon
+```
+
+See the [skill instructions](./skills/flutter-app-icon/SKILL.md).
+
 ### Brand logo design
 
 ```text
@@ -131,6 +140,7 @@ Read the selected skill's instructions before use. Workflows may edit project fi
 │   ├── flutter-getx-init/       # SKILL.md, README.md, assets/, references/
 │   ├── flutter-assets-compress/ # SKILL.md, README.md
 │   ├── flutter-rename/          # SKILL.md, README.md
+│   ├── flutter-app-icon/        # SKILL.md
 │   ├── design-logo/             # SKILL.md, README.md, assets/, examples/, references/, scripts/
 │   └── deep-code-review/        # SKILL.md, agents/, references/, scripts/
 ├── CHANGELOG.md
